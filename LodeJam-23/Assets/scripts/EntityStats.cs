@@ -66,7 +66,7 @@ public class EntityStats : MonoBehaviour
         _currentHealth -= damageTaken;
         if (_currentHealth < 0)
         {
-            currentHealth = 0;
+            _currentHealth = 0;
             OnDeath();
         }
         return damageTaken;
