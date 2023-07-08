@@ -6,7 +6,7 @@ public class EntityStats : MonoBehaviour
     private float maxHealth = 100;
     private float currentHealth;
     [SerializeField]
-    private float attackDamage;
+    private float attackDamage = 10;
     [SerializeField]
     private float defense = 5;
     [SerializeField]
