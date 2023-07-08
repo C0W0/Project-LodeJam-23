@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private float _dashingTimerInSec;
     private Vector2 _moveDirection = Vector2.zero;
     private float _scaleFactor = 1.0f;
-
     
     private readonly Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
     {
@@ -115,6 +114,6 @@ public class PlayerController : MonoBehaviour
     
     private void Attack(Vector2 pos)
     {
-        ProjectileManager.Instance.SpawnProjectile(_playerObject.transform.position, pos);
+        ProjectileManager.Instance.SpawnProjectile(transform.position, pos, _entityStats.GetAttackSpeed(), _entityStats.GetAttack(), gameObject);
     }
 }
