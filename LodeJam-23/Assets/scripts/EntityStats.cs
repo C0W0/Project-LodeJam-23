@@ -67,9 +67,9 @@ public class EntityStats : MonoBehaviour
         return damageTaken;
     }
 
-    public float attack(EntityStats target)
+    public float doAttack(EntityStats target)
     {
-        target.takeDamage(attack);
+        return target.takeDamage(attack);
     }
 
     void onDeath()

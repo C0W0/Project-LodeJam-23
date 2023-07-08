@@ -43,7 +43,7 @@ public class TestObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _moveDirection = Vector2.zero;
+        this._moveDirection = Vector2.zero;
         foreach (var (key, direction) in _keycodeMap)
         {
             if (Input.GetKey(key))
@@ -60,19 +60,36 @@ public class TestObject : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("Dash");
                 this._dashingTimerInSec = 0.1f;
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                print("Attack");
+                this.Attack(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             }
-            transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             CameraController.Instance.FollowObject(this.transform);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (this._dashingTimerInSec > 0.0f)
+        {
+            Debug.Log("Dashing");
+            this._dashingTimerInSec -= Time.deltaTime;
+            this._rigidbody2D.velocity = _moveDirection * _scaleFactor * 10;
+            return;
+        }
+        else
+        {
+            this._rigidbody2D.velocity = Vector2.zero;
+        }
+
+        this._rigidbody2D.velocity = _moveDirection * _scaleFactor;
     }
 
     protected virtual void Attack(Vector2 pos)
