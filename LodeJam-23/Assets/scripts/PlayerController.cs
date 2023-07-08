@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
     private void Attack(Vector2 pos)
     {
         ProjectileManager.Instance.SpawnProjectile(
-            transform.position, pos, 
+            _playerObject.transform.position, pos, 
             _playerEntity.GetAttackSpeed(), _playerEntity.GetAttack(), gameObject);
     }
 }
