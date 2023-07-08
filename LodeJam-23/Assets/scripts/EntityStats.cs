@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 {
     [SerializeField]
-    private float maxHealth;
+    private float maxHealth = 100;
     private float currentHealth;
     [SerializeField]
-    private float attack;
+    private float attack = 10;
     [SerializeField]
-    private float defense;
+    private float defense = 5;
     [SerializeField]
-    private float speed;
+    private float speed = 3;
 
 
     // Start is called before the first frame update
@@ -24,7 +22,7 @@ public class EntityStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public float getMaxHealth()
@@ -37,7 +35,7 @@ public class EntityStats : MonoBehaviour
         return currentHealth;
     }
 
-        public float getAttack()
+    public float getAttack()
     {
         return attack;
     }
@@ -67,9 +65,9 @@ public class EntityStats : MonoBehaviour
         return damageTaken;
     }
 
-    public float attack(EntityStats target)
+    public float doAttack(EntityStats target)
     {
-        target.takeDamage(attack);
+        return target.takeDamage(attack);
     }
 
     void onDeath()

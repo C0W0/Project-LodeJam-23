@@ -38,4 +38,15 @@ public class GameManager : MonoBehaviour
         player = newPlayer;
         enemies.Remove(newPlayer);
     }
+
+    public EntityStats getPlayer()
+    {
+        return player;
+    }
+
+    public List<EntityStats> getEnemies()
+    {
+        return enemies;
+    }
+    
 }

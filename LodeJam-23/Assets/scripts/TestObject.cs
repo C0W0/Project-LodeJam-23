@@ -66,7 +66,7 @@ public class TestObject : MonoBehaviour
             {
                 print("Attack");
             }
-            transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
+            transform.Translate(_moveDirection * _scaleFactor * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
