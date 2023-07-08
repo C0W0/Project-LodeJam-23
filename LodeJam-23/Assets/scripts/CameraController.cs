@@ -30,13 +30,12 @@ public class CameraController : MonoBehaviour
 	{
 		if (_objToFollow != null)
 		{
-			Vector3 pos = _objToFollow.position;
-			Vector3 originalPos = _cam.transform.position;
+			Vector3 targetPos = _objToFollow.position;
+			Vector3 pos = _cam.transform.position;
 			_cam.transform.position = new Vector3(
-				Mathf.Clamp(pos.x, cameraLimit.min.x, cameraLimit.max.x),
-				Mathf.Clamp(pos.y, cameraLimit.min.y, cameraLimit.max.y),
-				originalPos.z
-			);
+				Mathf.Lerp(pos.x, targetPos.x, 0.1f),
+				Mathf.Lerp(pos.y, targetPos.y, 0.1f),
+				pos.z);
 		}
 	}
 
