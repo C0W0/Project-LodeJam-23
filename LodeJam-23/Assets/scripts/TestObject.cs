@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class TestObject : MonoBehaviour
     [SerializeField]
     private float speed;
     
-    private Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
+    private readonly Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
     {
         {
             KeyCode.W, Vector2.up
@@ -31,6 +32,10 @@ public class TestObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+         // get cursor position
+         Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+
         Vector2 moveDirection = Vector2.zero;
         foreach (var (key, direction) in _keycodeMap)
         {
@@ -43,7 +48,19 @@ public class TestObject : MonoBehaviour
         if (moveDirection.magnitude != 0f)
         {
             float scaleFactor = speed / moveDirection.magnitude;
-            transform.Translate(moveDirection*scaleFactor);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                scaleFactor *= 2;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                transform.Translate(moveDirection * 5);
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                print("Attack");
+            }
+            transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
