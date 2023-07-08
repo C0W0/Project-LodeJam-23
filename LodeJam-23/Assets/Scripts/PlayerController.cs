@@ -120,11 +120,9 @@ public class PlayerController : MonoBehaviour
         IncreaseSpeed(-speed);
     }
     
-    private void Attack(Vector2 pos)
+    private void Attack(Vector2 targetPos)
     {
-        ProjectileManager.Instance.SpawnProjectile(
-            _playerObject.transform.position, pos, 
-            _playerEntity.GetAttackSpeed(), _playerEntity.GetAttack(), gameObject);
+        _playerEntity.Attack(targetPos);
     }
 
     public void OnPlayerHealthChange()

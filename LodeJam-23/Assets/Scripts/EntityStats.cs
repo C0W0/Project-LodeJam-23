@@ -13,6 +13,8 @@ public class EntityStats : MonoBehaviour
     private float speed = 3;
     [SerializeField]
     private float attackSpeed = 5;
+    [SerializeField]
+    private GameObject projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -86,5 +88,12 @@ public class EntityStats : MonoBehaviour
     {
         Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
+    }
+
+    public void Attack(Vector2 targetPos)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
+        projectileBase.Init(targetPos, this);
     }
 }
