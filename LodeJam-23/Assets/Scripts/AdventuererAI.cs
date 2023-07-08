@@ -12,7 +12,10 @@ public class AdventurerAI : MonoBehaviour
 	public float maxChangeDirectionInterval = 5f; // maximum time interval to change direction
 	public float deadbandDistance = 1f; // distance from target at which the enemy stops moving
 	public float rotationSpeed = 10f; // speed at which the direction vector rotates over time
+	public float minAttackInterval = 2f; // minimum time interval to attack
+	public float maxAttackInterval = 5f; // maximum time interval to attack
 	private float _timeSinceLastDirectionChange = 0f; // time since last direction change
+	private float _timeSinceLastAttack = 0f; // time since last attack
 	private Vector2 _direction; // current direction vector
 	private float _changeDirectionInterval;
 	private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
@@ -27,10 +30,11 @@ public class AdventurerAI : MonoBehaviour
 
 	void Update()
 	{
-		GameObject player = GameManager.Instance.GetPlayer().gameObject;
+		GameObject player = GameManager.Instance.GetPlayerEntity().gameObject;
 		float speed = GetComponent<EntityStats>().GetSpeed();
 
 		_timeSinceLastDirectionChange += Time.deltaTime;
+		_timeSinceLastAttack += Time.deltaTime;
 
 		if (_timeSinceLastDirectionChange >= _changeDirectionInterval)
 		{
@@ -54,7 +58,13 @@ public class AdventurerAI : MonoBehaviour
 			else
 			{
 				_rb.velocity = Vector2.zero;
+				if (_timeSinceLastAttack >= Random.Range(minAttackInterval, maxAttackInterval))
+				{
+					GetComponent<EntityStats>().Attack(player.transform.position);
+					_timeSinceLastAttack = 0f;
+				}
 			}
 		}
 	}
 }
+

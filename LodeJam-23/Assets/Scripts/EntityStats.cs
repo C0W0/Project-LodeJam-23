@@ -4,19 +4,22 @@ public class EntityStats : MonoBehaviour
 {
     [SerializeField]
     private float maxHealth = 100;
-    private float currentHealth;
+    private float _currentHealth;
     [SerializeField]
     private float attackDamage = 10;
     [SerializeField]
     private float defense = 5;
     [SerializeField]
     private float speed = 3;
-
+    [SerializeField]
+    private float attackSpeed = 5;
+    [SerializeField]
+    private GameObject projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        _currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -32,7 +35,7 @@ public class EntityStats : MonoBehaviour
 
     public float GetCurrentHealth()
     {
-        return currentHealth;
+        return _currentHealth;
     }
 
     public float GetAttack()
@@ -50,6 +53,11 @@ public class EntityStats : MonoBehaviour
         return speed;
     }
 
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
     public float TakeDamage(float damage)
     {
         float damageTaken = damage - defense;
@@ -57,23 +65,30 @@ public class EntityStats : MonoBehaviour
         {
             damageTaken = 0;
         }
-        currentHealth -= damageTaken;
-        if (currentHealth < 0)
+        _currentHealth -= damageTaken;
+        if (_currentHealth < 0)
         {
-            currentHealth = 0;
+            _currentHealth = 0;
+            OnDeath();
         }
         return damageTaken;
     }
 
-    public float Attack(EntityStats target)
+    public void Attack(EntityStats target)
     {
-        return target.TakeDamage(attackDamage);
+        // TODO
     }
 
     void OnDeath()
     {
-        // TODO
-        Debug.Log("Entity object died.");
+        Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
+    }
+
+    public void Attack(Vector2 targetPos)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
+        projectileBase.Init(targetPos, this);
     }
 }
