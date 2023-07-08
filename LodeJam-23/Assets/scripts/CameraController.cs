@@ -42,6 +42,7 @@ public class CameraController : MonoBehaviour
 
 	public void FollowObject(Transform obj)
 	{
+		print("follow");
 		_objToFollow = obj;
 		Focus(obj.position);
 	}
