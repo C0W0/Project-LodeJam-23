@@ -621,7 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  attack: 10
+  attackDamage: 10
   defense: 5
   speed: 3
 --- !u!1 &887117431
@@ -6349,7 +6349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f1088e123cd8a43af1fc5a889c2f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
 --- !u!114 &1849875493
 MonoBehaviour:
   m_ObjectHideFlags: 0
