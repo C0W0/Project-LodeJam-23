@@ -44,9 +44,12 @@ public class TestObject : MonoBehaviour
             transform.Translate(_dashDirection.Value * 50 * Time.deltaTime);
             return;
         }
-         // get cursor position
-         Vector2 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            // get cursor position
+            Vector2 cursorPosition = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Attack(cursorPosition);
+        }
 
         Vector2 moveDirection = Vector2.zero;
         foreach (var (key, direction) in _keycodeMap)
@@ -69,10 +72,6 @@ public class TestObject : MonoBehaviour
                 this._dashingTimerInSec = 0.1f;
                 this._dashDirection = moveDirection;
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                print("Attack");
-            }
             transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
         }
 
@@ -80,5 +79,10 @@ public class TestObject : MonoBehaviour
         {
             CameraController.Instance.FollowObject(this.transform);
         }
+    }
+
+    protected virtual void Attack(Vector2 pos)
+    {
+        ProjectileManager.Instance.SpawnProjectile(transform.position, pos);
     }
 }

@@ -301,10 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dedfe62aae186f49a9df9cf32bd4bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upLimit: 10
-  downLimit: -10
-  leftLimit: -10
-  rightLimit: 10
+  cameraLimit:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 10, z: 0}
 --- !u!1 &523791618
 GameObject:
   m_ObjectHideFlags: 0
@@ -6553,6 +6552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63f1088e123cd8a43af1fc5a889c2f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
 --- !u!114 &1849875493
 MonoBehaviour:
   m_ObjectHideFlags: 0
