@@ -58,6 +58,11 @@ public class EntityStats : MonoBehaviour
 
     public float TakeDamage(float damage)
     {
+        if (GameManager.Instance.GetPlayerEntity() == this)
+        {
+            PlayerController.Instance.PlayerHealthbar.OnPlayerHealthChange();
+        }
+        
         float damageTaken = damage - defense;
         if (damageTaken < 0)
         {
