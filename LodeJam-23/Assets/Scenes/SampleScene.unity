@@ -325,8 +325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upLimit: 10
   downLimit: -10
-  leftLimit: 10
-  rightLimit: -10
+  leftLimit: -10
+  rightLimit: 10
 --- !u!1 &1833086611
 GameObject:
   m_ObjectHideFlags: 0
