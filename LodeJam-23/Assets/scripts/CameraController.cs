@@ -6,9 +6,14 @@ using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
 	public static CameraController Instance;
+	public static Camera MainCamera { get { return Instance._cam; } }
+	public static bool IsInScene(Vector2 pos)
+	{
+		return Instance.cameraLimit.Contains(pos / 2);
+	}
 
 	[SerializeField]
-	private float upLimit, downLimit, leftLimit, rightLimit;
+	private Bounds cameraLimit;
 
 	private Camera _cam;
 	private Vector3 _touchPos;
@@ -28,8 +33,8 @@ public class CameraController : MonoBehaviour
 			Vector3 pos = _objToFollow.position;
 			Vector3 originalPos = _cam.transform.position;
 			_cam.transform.position = new Vector3(
-				Mathf.Clamp(pos.x, leftLimit, rightLimit),
-				Mathf.Clamp(pos.y, downLimit, upLimit),
+				Mathf.Clamp(pos.x, cameraLimit.min.x, cameraLimit.max.x),
+				Mathf.Clamp(pos.y, cameraLimit.min.y, cameraLimit.max.y),
 				originalPos.z
 			);
 		}
@@ -48,10 +53,9 @@ public class CameraController : MonoBehaviour
 
 	public void Focus(Vector3 position)
 	{
-		print(position);
 		Vector3 newPos = new Vector3(
-			Mathf.Clamp(position.x, leftLimit, rightLimit),
-			Mathf.Clamp(position.y, downLimit, upLimit),
+			Mathf.Clamp(position.x, cameraLimit.min.x, cameraLimit.max.x),
+			Mathf.Clamp(position.y, cameraLimit.min.y, cameraLimit.max.y),
 			transform.position.z);
 
 		LeanTween.move(gameObject, newPos, 0.2f);
