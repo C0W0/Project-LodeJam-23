@@ -4,49 +4,50 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
-    public EntityStats player;
+    [SerializeField]
+    private EntityStats player;
 
-    public List<EntityStats> enemies;
+    private HashSet<EntityStats> _enemies;
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
             Debug.Log("Warning: multiple " + this + " in scene!");
         }
 
-        // add every single EntityStats in the scene to the enemies list except for the player
-        enemies = new List<EntityStats>();
-        foreach (EntityStats entity in FindObjectsOfType<EntityStats>())
+        // add every single EntityStats in the scene to the enemies set except for the player
+        _enemies = new HashSet<EntityStats>();
+        foreach (EntityStats entity in FindObjectsByType<EntityStats>(FindObjectsSortMode.None))
         {
             if (entity != player)
             {
-                enemies.Add(entity);
+                _enemies.Add(entity);
             }
         }
     }
 
     // The player's body is swapped between the player and the enemy
-    public void swapPlayer(EntityStats newPlayer){
-        enemies.Add(player);
+    public void SwapPlayer(EntityStats newPlayer){
+        _enemies.Add(player);
         player = newPlayer;
-        enemies.Remove(newPlayer);
+        _enemies.Remove(newPlayer);
     }
 
-    public EntityStats getPlayer()
+    public EntityStats GetPlayer()
     {
         return player;
     }
 
-    public List<EntityStats> getEnemies()
+    public HashSet<EntityStats> GetEnemies()
     {
-        return enemies;
+        return _enemies;
     }
     
 }

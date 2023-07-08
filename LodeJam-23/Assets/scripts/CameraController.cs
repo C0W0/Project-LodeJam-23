@@ -15,9 +15,6 @@ public class CameraController : MonoBehaviour
 	[SerializeField]
 	private Bounds cameraLimit;
 
-	[SerializeField]
-	private float deadband = 0.5f;
-
 	private Camera _cam;
 	private Vector3 _touchPos;
 	private Transform _objToFollow;
@@ -33,7 +30,13 @@ public class CameraController : MonoBehaviour
 	{
 		if (_objToFollow != null)
 		{
-			Focus(_objToFollow.position);
+			Vector3 pos = _objToFollow.position;
+			Vector3 originalPos = _cam.transform.position;
+			_cam.transform.position = new Vector3(
+				Mathf.Clamp(pos.x, cameraLimit.min.x, cameraLimit.max.x),
+				Mathf.Clamp(pos.y, cameraLimit.min.y, cameraLimit.max.y),
+				originalPos.z
+			);
 		}
 	}
 
@@ -56,9 +59,6 @@ public class CameraController : MonoBehaviour
 			Mathf.Clamp(position.y, cameraLimit.min.y, cameraLimit.max.y),
 			transform.position.z);
 
-		if (Vector3.Distance(transform.position, newPos) > deadband)
-		{
-			LeanTween.move(gameObject, newPos, 0.2f);
-		}
+		LeanTween.move(gameObject, newPos, 0.2f);
 	}
 }
