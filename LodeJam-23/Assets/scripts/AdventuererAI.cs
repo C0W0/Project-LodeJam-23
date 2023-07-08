@@ -27,7 +27,7 @@ public class AdventurerAI : MonoBehaviour
 
 	void Update()
 	{
-		GameObject player = GameManager.Instance.GetPlayer().gameObject;
+		GameObject player = GameManager.Instance.GetPlayerEntity().gameObject;
 		float speed = GetComponent<EntityStats>().GetSpeed();
 
 		_timeSinceLastDirectionChange += Time.deltaTime;

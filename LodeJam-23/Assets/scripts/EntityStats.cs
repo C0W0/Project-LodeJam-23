@@ -4,7 +4,7 @@ public class EntityStats : MonoBehaviour
 {
     [SerializeField]
     private float maxHealth = 100;
-    private float currentHealth;
+    private float _currentHealth;
     [SerializeField]
     private float attackDamage = 10;
     [SerializeField]
@@ -16,7 +16,7 @@ public class EntityStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        _currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class EntityStats : MonoBehaviour
 
     public float GetCurrentHealth()
     {
-        return currentHealth;
+        return _currentHealth;
     }
 
     public float GetAttack()
@@ -57,17 +57,17 @@ public class EntityStats : MonoBehaviour
         {
             damageTaken = 0;
         }
-        currentHealth -= damageTaken;
-        if (currentHealth < 0)
+        _currentHealth -= damageTaken;
+        if (_currentHealth < 0)
         {
-            currentHealth = 0;
+            _currentHealth = 0;
         }
         return damageTaken;
     }
 
-    public float Attack(EntityStats target)
+    public void Attack(EntityStats target)
     {
-        return target.TakeDamage(attackDamage);
+        // TODO
     }
 
     void OnDeath()
