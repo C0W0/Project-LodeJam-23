@@ -31,6 +31,17 @@ public class PlayerController : MonoBehaviour
         }
     };
 
+    public void IncreaseSpeed(int speedDelta)
+    {
+        speed += speedDelta;
+    }
+
+    public IEnumerator SpeedBoost(int speed, float speedTime)
+    {
+        IncreaseSpeed(speed);
+        yield return new WaitForSeconds(speedTime);
+        IncreaseSpeed(-speed);
+    }
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
