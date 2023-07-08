@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
 {
+    public int damage;
     [SerializeField]
     private float speed;
-    
+
     private Vector3 _direction;
 
     void Awake()
