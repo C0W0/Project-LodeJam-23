@@ -11,7 +11,8 @@ public class EntityStats : MonoBehaviour
     private float defense = 5;
     [SerializeField]
     private float speed = 3;
-
+    [SerializeField]
+    private float attackSpeed = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,11 @@ public class EntityStats : MonoBehaviour
         return speed;
     }
 
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
     public float TakeDamage(float damage)
     {
         float damageTaken = damage - defense;
@@ -61,6 +67,7 @@ public class EntityStats : MonoBehaviour
         if (currentHealth < 0)
         {
             currentHealth = 0;
+            OnDeath();
         }
         return damageTaken;
     }
@@ -72,8 +79,7 @@ public class EntityStats : MonoBehaviour
 
     void OnDeath()
     {
-        // TODO
-        Debug.Log("Entity object died.");
+        Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
     }
 }

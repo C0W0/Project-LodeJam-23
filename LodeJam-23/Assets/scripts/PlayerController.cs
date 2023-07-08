@@ -14,7 +14,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveDirection = Vector2.zero;
     private Rigidbody2D _rigidbody2D;
     private float _scaleFactor = 1.0f;
-    
+    private EntityStats _entityStats;
+    public int maxHealth = 50;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     private readonly Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
     {
         {
@@ -44,13 +48,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Awake()
     {
+        _entityStats = GetComponent<EntityStats>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _dashingTimerInSec = 0f;
     }
-    
-    public int maxHealth = 50;
-    public int currentHealth;
-    public HealthBar healthBar;
     
     // Start is called before the first frame update
     void Start()
@@ -120,6 +121,6 @@ public class PlayerController : MonoBehaviour
 
     private void Attack(Vector2 pos)
     {
-        ProjectileManager.Instance.SpawnProjectile(transform.position, pos);
+        ProjectileManager.Instance.SpawnProjectile(transform.position, pos, _entityStats.GetAttackSpeed(), _entityStats.GetAttack(), gameObject);
     }
 }

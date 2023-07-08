@@ -30,11 +30,14 @@ public class ProjectileManager : MonoBehaviour
         
     }
 
-    public void SpawnProjectile(Vector2 initPos, Vector2 targetPos)
+    public void SpawnProjectile(Vector2 initPos, Vector2 targetPos, float speed, float damage, GameObject gameObject)
     {
         GameObject newProjectile = Instantiate(projectilePrefab);
         newProjectile.transform.position = initPos;
         ProjectileBase projectileComponent = newProjectile.GetComponent<ProjectileBase>();
+        projectileComponent.damage = damage;
+        projectileComponent.speed = speed;
+        projectileComponent.source = gameObject;
         _projectiles.Add(projectileComponent);
         projectileComponent.Init(targetPos);
     }
