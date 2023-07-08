@@ -29,7 +29,7 @@ public class ItemScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        var playerScript = collider.gameObject.GetComponent<TestObject>();
+        var playerScript = collider.gameObject.GetComponent<PlayerController>();
         if (playerScript ==  null )
         {
             return;

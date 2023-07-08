@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public static GameManager instance;
 
+    public EntityStats player;
+
+    public List<EntityStats> enemies;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Debug.Log("Warning: multiple " + this + " in scene!");
+        }
+
+        // add every single EntityStats in the scene to the enemies list except for the player
+        enemies = new List<EntityStats>();
+        foreach (EntityStats entity in FindObjectsOfType<EntityStats>())
+        {
+            if (entity != player)
+            {
+                enemies.Add(entity);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    // The player's body is swapped between the player and the enemy
+    public void swapPlayer(EntityStats newPlayer){
+        enemies.Add(player);
+        player = newPlayer;
+        enemies.Remove(newPlayer);
     }
+
+    public EntityStats getPlayer()
+    {
+        return player;
+    }
+
+    public List<EntityStats> getEnemies()
+    {
+        return enemies;
+    }
+    
 }

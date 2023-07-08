@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
-public class TestObject : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed;
 
-    private float _dashingTimerInSec = 0.0f;
-
-    private Vector2? _dashDirection = null; 
+    private float _dashingTimerInSec;
+    private Vector2 _moveDirection = Vector2.zero;
+    private Rigidbody2D _rigidbody2D;
+    private float _scaleFactor = 1.0f;
     
     private readonly Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
     {
@@ -40,6 +42,11 @@ public class TestObject : MonoBehaviour
         yield return new WaitForSeconds(speedTime);
         IncreaseSpeed(-speed);
     }
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _dashingTimerInSec = 0f;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -50,42 +57,31 @@ public class TestObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_dashingTimerInSec > 0.0f)
-        {
-            _dashingTimerInSec -= Time.deltaTime;
-            // dash
-            transform.Translate(_dashDirection.Value * 50 * Time.deltaTime);
-            return;
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            // get cursor position
-            Vector2 cursorPosition = CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-            Attack(cursorPosition);
-        }
-
-        Vector2 moveDirection = Vector2.zero;
+        _moveDirection = Vector2.zero;
         foreach (var (key, direction) in _keycodeMap)
         {
             if (Input.GetKey(key))
             {
-                moveDirection += direction;
+                _moveDirection += direction;
             }
         }
-
-        if (moveDirection.magnitude != 0f)
+        if (_moveDirection.magnitude != 0f)
         {
-            float scaleFactor = speed / moveDirection.magnitude;
+            _scaleFactor = speed / _moveDirection.magnitude;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                scaleFactor *= 2;
+                _scaleFactor *= 2;
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                this._dashingTimerInSec = 0.1f;
-                this._dashDirection = moveDirection;
+                Debug.Log("Dash");
+                _dashingTimerInSec = 0.1f;
             }
-            transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack(CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition));
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -94,7 +90,19 @@ public class TestObject : MonoBehaviour
         }
     }
 
-    protected virtual void Attack(Vector2 pos)
+    private void FixedUpdate()
+    {
+        if (_dashingTimerInSec > 0.0f)
+        {
+            Debug.Log("Dashing");
+            _dashingTimerInSec -= Time.deltaTime;
+            _rigidbody2D.velocity = _moveDirection * (_scaleFactor * 10);
+            return;
+        }
+        _rigidbody2D.velocity = _moveDirection * _scaleFactor;
+    }
+
+    private void Attack(Vector2 pos)
     {
         ProjectileManager.Instance.SpawnProjectile(transform.position, pos);
     }
