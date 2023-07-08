@@ -36,11 +36,16 @@ public class TestObject : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _dashingTimerInSec = 0f;
     }
-
+    
+    public int maxHealth = 50;
+    public int currentHealth;
+    public HealthBar healthBar;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -77,6 +82,17 @@ public class TestObject : MonoBehaviour
         {
             CameraController.Instance.FollowObject(this.transform);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            TakeDamage(10);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     private void FixedUpdate()
