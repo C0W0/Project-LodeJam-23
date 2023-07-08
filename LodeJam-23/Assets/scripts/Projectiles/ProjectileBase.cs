@@ -58,15 +58,19 @@ public class ProjectileBase : MonoBehaviour
         {
             // Hit an entity
             entityStats.TakeDamage(_damage);
-            if (pierceCount <= 0)
+            if (pierceCount <= 0){
                 ProjectileManager.Instance.RemoveProjectile(this);
+                return;
+            }
             pierceCount--;
         }
         else
         {
             // Bouncing off walls
-            if (bounceCount <= 0)
+            if (bounceCount <= 0){
                 ProjectileManager.Instance.RemoveProjectile(this);
+                return;
+            }
 
             bounceCount--;
             _direction = Vector3.Reflect(_direction, collision.contacts[0].normal);
@@ -75,8 +79,8 @@ public class ProjectileBase : MonoBehaviour
             {
                 // spread the new projectiles out in a 30 degree arc
                 Vector3 spreadDirection = Quaternion.AngleAxis(-15f + i * (30f / (bounceMultiplier - 1)), Vector3.forward) * _direction;
+
                 GameObject newProjectile = Instantiate(gameObject);
-                newProjectile.transform.position = transform.position;
                 ProjectileBase projectileComponent = newProjectile.GetComponent<ProjectileBase>();
                 projectileComponent._speed = _speed * bounceSpeedMultiplier;
                 projectileComponent._direction = spreadDirection;

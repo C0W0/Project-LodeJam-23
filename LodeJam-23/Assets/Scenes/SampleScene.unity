@@ -1066,7 +1066,7 @@ MonoBehaviour:
   defense: 5
   speed: 3
   attackSpeed: 5
-  projectilePrefab: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
+  projectilePrefab: {fileID: 4080319307703593327, guid: 6966a49f472972f43a3d74aed187e74e, type: 3}
 --- !u!1 &735404983
 GameObject:
   m_ObjectHideFlags: 0
