@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class TestObject : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float speed;
@@ -107,7 +107,7 @@ public class TestObject : MonoBehaviour
         _rigidbody2D.velocity = _moveDirection * _scaleFactor;
     }
 
-    protected virtual void Attack(Vector2 pos)
+    private void Attack(Vector2 pos)
     {
         ProjectileManager.Instance.SpawnProjectile(transform.position, pos);
     }

@@ -861,10 +861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dedfe62aae186f49a9df9cf32bd4bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upLimit: 8
-  downLimit: -19
-  leftLimit: -22.9
-  rightLimit: 19.9
+  cameraLimit:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 10, z: 0}
 --- !u!1 &523791618
 GameObject:
   m_ObjectHideFlags: 0
