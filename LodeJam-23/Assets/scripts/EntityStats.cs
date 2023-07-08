@@ -6,7 +6,7 @@ public class EntityStats : MonoBehaviour
     private float maxHealth = 100;
     private float currentHealth;
     [SerializeField]
-    private float attack = 10;
+    private float attackDamage;
     [SerializeField]
     private float defense = 5;
     [SerializeField]
@@ -25,32 +25,32 @@ public class EntityStats : MonoBehaviour
 
     }
 
-    public float getMaxHealth()
+    public float GetMaxHealth()
     {
         return maxHealth;
     }
 
-    public float getCurrentHealth()
+    public float GetCurrentHealth()
     {
         return currentHealth;
     }
 
-    public float getAttack()
+    public float GetAttack()
     {
-        return attack;
+        return attackDamage;
     }
 
-    public float getDefense()
+    public float GetDefense()
     {
         return defense;
     }
 
-    public float getSpeed()
+    public float GetSpeed()
     {
         return speed;
     }
 
-    public float takeDamage(float damage)
+    public float TakeDamage(float damage)
     {
         float damageTaken = damage - defense;
         if (damageTaken < 0)
@@ -65,12 +65,12 @@ public class EntityStats : MonoBehaviour
         return damageTaken;
     }
 
-    public float doAttack(EntityStats target)
+    public float Attack(EntityStats target)
     {
-        return target.takeDamage(attack);
+        return target.TakeDamage(attackDamage);
     }
 
-    void onDeath()
+    void OnDeath()
     {
         // TODO
         Debug.Log("Entity object died.");

@@ -10,13 +10,9 @@ public class TestObject : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    private float _dashingTimerInSec = 0.0f;
-
-
-    private Vector2 _moveDirection = Vector2.zero; 
-
+    private float _dashingTimerInSec;
+    private Vector2 _moveDirection = Vector2.zero;
     private Rigidbody2D _rigidbody2D;
-
     private float _scaleFactor = 1.0f;
     
     private readonly Dictionary<KeyCode, Vector2> _keycodeMap = new Dictionary<KeyCode, Vector2>
@@ -34,10 +30,17 @@ public class TestObject : MonoBehaviour
             KeyCode.D, Vector2.right
         }
     };
+
+    private void Awake()
+    {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _dashingTimerInSec = 0f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame
@@ -53,26 +56,39 @@ public class TestObject : MonoBehaviour
         }
         if (_moveDirection.magnitude != 0f)
         {
-            this._scaleFactor = speed / _moveDirection.magnitude;
+            _scaleFactor = speed / _moveDirection.magnitude;
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                this._scaleFactor *= 2;
+                _scaleFactor *= 2;
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                this._dashingTimerInSec = 0.1f;
+                Debug.Log("Dash");
+                _dashingTimerInSec = 0.1f;
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                print("Attack");
-            }
-            transform.Translate(_moveDirection * _scaleFactor * Time.deltaTime);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack(CameraController.MainCamera.ScreenToWorldPoint(Input.mousePosition));
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             CameraController.Instance.FollowObject(this.transform);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_dashingTimerInSec > 0.0f)
+        {
+            Debug.Log("Dashing");
+            _dashingTimerInSec -= Time.deltaTime;
+            _rigidbody2D.velocity = _moveDirection * (_scaleFactor * 10);
+            return;
+        }
+        _rigidbody2D.velocity = _moveDirection * _scaleFactor;
     }
 
     protected virtual void Attack(Vector2 pos)
