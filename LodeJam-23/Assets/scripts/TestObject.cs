@@ -40,7 +40,15 @@ public class TestObject : MonoBehaviour
             }
         }
 
-        float scaleFactor = speed / moveDirection.magnitude;
-        transform.Translate(moveDirection*scaleFactor);
+        if (moveDirection.magnitude != 0f)
+        {
+            float scaleFactor = speed / moveDirection.magnitude;
+            transform.Translate(moveDirection*scaleFactor);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            CameraController.Instance.FollowObject(this.transform);
+        }
     }
 }

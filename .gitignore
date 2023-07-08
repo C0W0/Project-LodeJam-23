@@ -69,3 +69,7 @@ crashlytics-build.properties
 /LodeJam-23/ProjectSettings/BurstAotSettings_StandaloneWindows.json
 /LodeJam-23/ProjectSettings/CommonBurstAotSettings.json
 
+# test object
+/LodeJam-23/[Aa]ssets/scripts/TestObject.cs
+/LodeJam-23/[Aa]ssets/scripts/TestUI.cs
+
