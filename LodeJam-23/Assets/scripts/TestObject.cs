@@ -28,6 +28,19 @@ public class TestObject : MonoBehaviour
             KeyCode.D, Vector2.right
         }
     };
+
+    public void IncreaseSpeed(int speedDelta)
+    {
+        speed += speedDelta;
+    }
+
+    public IEnumerator SpeedBoost(int speed, float speedTime)
+    {
+        IncreaseSpeed(speed);
+        yield return new WaitForSeconds(speedTime);
+        IncreaseSpeed(-speed);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
