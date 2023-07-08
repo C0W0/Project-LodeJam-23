@@ -1048,7 +1048,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &646931676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,6 +1066,7 @@ MonoBehaviour:
   defense: 5
   speed: 3
   attackSpeed: 5
+  projectilePrefab: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
 --- !u!1 &735404983
 GameObject:
   m_ObjectHideFlags: 0
@@ -6864,6 +6865,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 467163519770059112, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
     - target: {fileID: 2323926893015601553, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
       propertyPath: m_Name
       value: Adventurer

@@ -12,34 +12,15 @@ public class ProjectileManager : MonoBehaviour
 
     private HashSet<ProjectileBase> _projectiles;
 
-	void Awake()
+    void Awake()
     {
         Instance = this;
         _projectiles = new HashSet<ProjectileBase>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void AddProjectile(ProjectileBase projectile)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SpawnProjectile(Vector2 initPos, Vector2 targetPos, float speed, float damage, GameObject gameObject)
-    {
-        GameObject newProjectile = Instantiate(projectilePrefab);
-        newProjectile.transform.position = initPos;
-        ProjectileBase projectileComponent = newProjectile.GetComponent<ProjectileBase>();
-        projectileComponent.damage = damage;
-        projectileComponent.speed = speed;
-        projectileComponent.source = gameObject;
-        _projectiles.Add(projectileComponent);
-        projectileComponent.Init(targetPos);
+        _projectiles.Add(projectile);
     }
 
     public void RemoveProjectile(ProjectileBase projectile)
