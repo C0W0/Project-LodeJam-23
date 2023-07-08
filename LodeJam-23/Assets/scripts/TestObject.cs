@@ -64,33 +64,19 @@ public class TestObject : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-
+                print("Attack");
             }
-        }
-
-    }
-    private void FixedUpdate()
-    {
-        if (_dashingTimerInSec > 0.0f)
-        {
-            _dashingTimerInSec -= Time.deltaTime;
-            // dash
-            _rigidbody2D.velocity = _moveDirection * 50;
-            return;
-        } else
-        {
-            _rigidbody2D.velocity = Vector2.zero;
-        }
-
-
-        if (_moveDirection.magnitude != 0f)
-        {
-            transform.Translate(_moveDirection * this._scaleFactor * Time.deltaTime);
+            transform.Translate(moveDirection * scaleFactor * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             CameraController.Instance.FollowObject(this.transform);
         }
+    }
+
+    protected virtual void Attack(Vector2 pos)
+    {
+        ProjectileManager.Instance.SpawnProjectile(transform.position, pos);
     }
 }
