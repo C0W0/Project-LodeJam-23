@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     private GameObject _adventurerTemplate, _bossTemplate;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
+    public int currAdventureIndex
+    {
+        get { return _currAdventureIndex; }
+        set { _currAdventureIndex = value; }
+    }
     private EntityStats _playerEntity;
 
     private bool _isGameOngoing;
@@ -58,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void StartNewLevel()
     {
         bool isPlayingBoss = Random.Range(-1f, 1f) >= 0;
-        StartLevel(isPlayingBoss, adventurerSpawnCount);
+        StartLevel(false, adventurerSpawnCount);
     }
 
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
