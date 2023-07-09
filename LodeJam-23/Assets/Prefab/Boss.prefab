@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3226221541399288873}
   - component: {fileID: 3666790962463036570}
   - component: {fileID: 6995047498483980869}
+  - component: {fileID: -8331612096300428713}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3489003018355678561
 SpriteRenderer:
@@ -169,3 +170,22 @@ MonoBehaviour:
   attackSpeed: 5
   projectilePrefab: {fileID: 4080319307703593327, guid: 6966a49f472972f43a3d74aed187e74e, type: 3}
   boss: 1
+--- !u!114 &-8331612096300428713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853987781408546893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809b45d0a83cdc64eafa7abcf3de226c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFromPlayer: 8
+  minChangeDirectionInterval: 1
+  maxChangeDirectionInterval: 1
+  deadbandDistance: 1
+  rotationSpeed: 100
+  minAttackInterval: 0
+  maxAttackInterval: 2
