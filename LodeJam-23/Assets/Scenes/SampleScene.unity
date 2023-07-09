@@ -773,8 +773,8 @@ RectTransform:
   m_LocalScale: {x: 2.6796877, y: 2.6796877, z: 2.6796877}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1662398368}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6640,53 +6640,22 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eb7463f3fc17dec4381b1dcf6a98e32f, type: 3}
   - {fileID: 21300000, guid: 97a047a6bd53b20458ca341afc14cc6a, type: 3}
   - {fileID: 21300000, guid: 29e515ade9cf85a489519a32d2778818, type: 3}
---- !u!1 &1662398367
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1662398368}
-  - component: {fileID: 1662398370}
-  m_Layer: 0
-  m_Name: HealthBarHUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1662398368
+--- !u!4 &1662398368 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+  m_PrefabInstance: {fileID: 7449274885719704904}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662398367}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -128, y: -72.02332, z: 0}
-  m_LocalScale: {x: 0.37317783, y: 0.37317783, z: 0.37317783}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 735404984}
-  m_Father: {fileID: 1571209891}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1662398370
+--- !u!114 &1662398370 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6809846292249001675, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+  m_PrefabInstance: {fileID: 7449274885719704904}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662398367}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c0f78e4acfe21a4594760304164796e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartsParent: {fileID: 735404984}
-  heartContainerPrefab: {fileID: 1000013667988280, guid: 677e3f20f0ab76a45bd59d5b73b0b446, type: 3}
 --- !u!1 &1739578681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6815,7 +6784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804455079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.72, y: -5.56, z: 0}
+  m_LocalPosition: {x: -2.54, y: -3.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29891,3 +29860,64 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &7449274885719704904
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1571209891}
+    m_Modifications:
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -128
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -72.02332
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 688800265698134449, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488385855939434025, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
+      propertyPath: m_Name
+      value: HealthBarHUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8b9fa2a353779094881a5b75370b5fab, type: 3}
