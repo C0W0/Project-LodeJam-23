@@ -7,14 +7,17 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+    
     private EntityStats _playerEntity;
     private GameObject _playerObject;
     private Rigidbody2D _rigidbody2D;
+    
+    public BaseHealthBar playerHealthbar;
     // TODO: get rid of this and use playerEntity
     [SerializeField]
     private float speed;
-
-
+    
     private float _dashingTimerInSec;
     private Vector2 _moveDirection = Vector2.zero;
     private float _scaleFactor = 1.0f;
@@ -34,6 +37,11 @@ public class PlayerController : MonoBehaviour
             KeyCode.D, Vector2.right
         }
     };
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     public void SetPlayer(EntityStats newPlayerEntity)
     {
@@ -115,5 +123,10 @@ public class PlayerController : MonoBehaviour
     private void Attack(Vector2 targetPos)
     {
         _playerEntity.Attack(targetPos);
+    }
+
+    public void OnPlayerHealthChange()
+    {
+        playerHealthbar.OnPlayerHealthChange();
     }
 }

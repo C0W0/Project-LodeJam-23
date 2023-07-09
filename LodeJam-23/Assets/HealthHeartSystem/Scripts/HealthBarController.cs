@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarController : MonoBehaviour
+public class HealthBarController : BaseHealthBar
 {
     private GameObject[] heartContainers;
     private Image[] heartFills;
@@ -16,15 +16,20 @@ public class HealthBarController : MonoBehaviour
     private void Start()
     {
         // Should I use lists? Maybe :)
-        heartContainers = new GameObject[(int)GameManager.Instance.GetPlayerEntity().GetMaxHealth()];
-        heartFills = new Image[(int)GameManager.Instance.GetPlayerEntity().GetMaxHealth()];
+        int maxHealth = (int)GameManager.Instance.GetPlayerEntity().GetMaxHealth();
+        heartContainers = new GameObject[maxHealth];
+        heartFills = new Image[maxHealth];
 
-        PlayerStats.Instance.onHealthChangedCallback += UpdateHeartsHUD;
         InstantiateHeartContainers();
         UpdateHeartsHUD();
     }
 
-    public void UpdateHeartsHUD()
+    public override void OnPlayerHealthChange()
+    {
+        UpdateHeartsHUD();
+    }
+
+    private void UpdateHeartsHUD()
     {
         SetHeartContainers();
         SetFilledHearts();
@@ -34,7 +39,7 @@ public class HealthBarController : MonoBehaviour
     {
         for (int i = 0; i < heartContainers.Length; i++)
         {
-            if (i < PlayerStats.Instance.MaxHealth)
+            if (i < GameManager.Instance.GetPlayerEntity().GetMaxHealth())
             {
                 heartContainers[i].SetActive(true);
             }
@@ -49,7 +54,7 @@ public class HealthBarController : MonoBehaviour
     {
         for (int i = 0; i < heartFills.Length; i++)
         {
-            if (i < PlayerStats.Instance.Health)
+            if (i < GameManager.Instance.GetPlayerEntity().GetCurrentHealth())
             {
                 heartFills[i].fillAmount = 1;
             }
@@ -59,16 +64,17 @@ public class HealthBarController : MonoBehaviour
             }
         }
 
-        if (PlayerStats.Instance.Health % 1 != 0)
+        float currHealth = GameManager.Instance.GetPlayerEntity().GetCurrentHealth();
+        if (currHealth % 1 != 0)
         {
-            int lastPos = Mathf.FloorToInt(PlayerStats.Instance.Health);
-            heartFills[lastPos].fillAmount = PlayerStats.Instance.Health % 1;
+            int lastPos = Mathf.FloorToInt(currHealth);
+            heartFills[lastPos].fillAmount = currHealth % 1;
         }
     }
 
     void InstantiateHeartContainers()
     {
-        for (int i = 0; i < PlayerStats.Instance.MaxTotalHealth; i++)
+        for (int i = 0; i < GameManager.Instance.GetPlayerEntity().GetMaxHealth(); i++)
         {
             GameObject temp = Instantiate(heartContainerPrefab);
             temp.transform.SetParent(heartsParent, false);

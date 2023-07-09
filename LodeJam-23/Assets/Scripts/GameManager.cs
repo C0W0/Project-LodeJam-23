@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,15 +9,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private EntityStats playerEntity;
-    [SerializeField]
-    private PlayerController playerController;
 
     private HashSet<EntityStats> _enemies;
 
     void Awake()
     {
         Instance = this;
-        playerController.SetPlayer(playerEntity);
+    }
+
+    void Start()
+    {
+        PlayerController.Instance.SetPlayer(playerEntity);
 
         // add every single EntityStats in the scene to the enemies set except for the player
         _enemies = new HashSet<EntityStats>();
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour
     private void SetPlayerEntity(EntityStats newPlayer)
     {
         playerEntity = newPlayer;
-        playerController.SetPlayer(newPlayer);
+        PlayerController.Instance.SetPlayer(newPlayer);
     }
 
     public EntityStats GetPlayerEntity()

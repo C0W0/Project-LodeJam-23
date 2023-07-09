@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AdventurerAI : MonoBehaviour
 {
@@ -20,19 +22,25 @@ public class AdventurerAI : MonoBehaviour
 	private float _changeDirectionInterval;
 	private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
 
-	void Start()
+	private EntityStats _entity;
+	private GameObject _playerObject;
+	
+	void Awake()
 	{
 		_rb = GetComponent<Rigidbody2D>();
+		_entity = GetComponent<EntityStats>();
+	}
+
+	void Start()
+	{
 		_direction = Random.insideUnitCircle.normalized; // initialize direction to zero vector
 		_changeDirectionInterval = Random.Range(minChangeDirectionInterval, maxChangeDirectionInterval); // initialize changeDirectionInterval to a random value between minChangeDirectionInterval and maxChangeDirectionInterval
 		_rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
+		_playerObject = GameManager.Instance.GetPlayerEntity().gameObject;
 	}
 
 	void Update()
 	{
-		GameObject player = GameManager.Instance.GetPlayerEntity().gameObject;
-		float speed = GetComponent<EntityStats>().GetSpeed();
-
 		_timeSinceLastDirectionChange += Time.deltaTime;
 		_timeSinceLastAttack += Time.deltaTime;
 
@@ -46,21 +54,21 @@ public class AdventurerAI : MonoBehaviour
 		// slowly rotate direction vector
 		_direction = Quaternion.Euler(0, 0, _rotateDirection * rotationSpeed * Time.deltaTime) * _direction;
 
-		if (player != null)
+		if (_playerObject != null)
 		{
-			Vector2 targetLocation = (Vector2)player.transform.position + _direction * distanceFromPlayer;
+			Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
 
 			Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
 			if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
 			{
-				_rb.velocity = directionToTarget * speed;
+				_rb.velocity = directionToTarget * _entity.GetSpeed();
 			}
 			else
 			{
 				_rb.velocity = Vector2.zero;
 				if (_timeSinceLastAttack >= Random.Range(minAttackInterval, maxAttackInterval))
 				{
-					GetComponent<EntityStats>().Attack(player.transform.position);
+					_entity.Attack(_playerObject.transform.position);
 					_timeSinceLastAttack = 0f;
 				}
 			}
