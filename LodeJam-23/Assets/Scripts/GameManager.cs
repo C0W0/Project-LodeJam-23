@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         
         if (next)
         {
-            _currAdventureIndex = _currAdventureIndex == _adventurers.Count-1 ? 0 : _currAdventureIndex+1;
+            _currAdventureIndex = _currAdventureIndex >= _adventurers.Count-1 ? 0 : _currAdventureIndex+1;
         }
         else
         {
