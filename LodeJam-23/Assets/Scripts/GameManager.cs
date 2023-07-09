@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void StartNewLevel()
     {
         bool isPlayingBoss = Random.Range(-1f, 1f) >= 0;
-        StartLevel(false, adventurerSpawnCount);
+        StartLevel(isPlayingBoss, adventurerSpawnCount);
     }
 
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
@@ -182,6 +182,8 @@ public class GameManager : MonoBehaviour
         {
             _currAdventureIndex = _currAdventureIndex == 0 ? _adventurers.Count-1 : _currAdventureIndex-1;
         }
+
+        _currAdventureIndex = Math.Min(_currAdventureIndex, _adventurers.Count-1);
         SetPlayerEntity(_adventurers[_currAdventureIndex]);
         return true;
     }
