@@ -52,22 +52,9 @@ public class CardController : MonoBehaviour
         _index = index;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnCardClick()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_index != -1)
-        {
-            if (Input.GetKeyDown(CardContainerController.KeycodeMap[_index]))
-            {
-                GameManager.Instance.ApplyBonus = _applyBonusCallback;
-                CardContainerController.Instance.DestroyAllCards();
-            }
-        }
+        GameManager.Instance.ApplyBonus = _applyBonusCallback;
+        CardContainerController.Instance.DestroyAllCards();
     }
 }
