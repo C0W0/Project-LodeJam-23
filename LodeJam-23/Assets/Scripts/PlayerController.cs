@@ -125,6 +125,11 @@ public class PlayerController : MonoBehaviour
         _playerEntity.Attack(targetPos);
     }
 
+    public void OnDamageTaken()
+    {
+        CameraController.Instance.ShakeCamera(0.1f, 0.1f);
+    }
+
     public void OnPlayerHealthChange()
     {
         playerHealthbar.OnPlayerHealthChange();
