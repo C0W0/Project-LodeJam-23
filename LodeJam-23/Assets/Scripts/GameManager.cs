@@ -24,11 +24,14 @@ public class GameManager : MonoBehaviour
 
     private bool _isGameOngoing;
 
+    public ApplyBonusCallback ApplyBonus;
+
     void Awake()
     {
         Instance = this;
         _adventurers = new List<EntityStats>();
         _isGameOngoing = false;
+        ApplyBonus = entity => {};
     }
 
     void Start()
@@ -47,15 +50,22 @@ public class GameManager : MonoBehaviour
     public void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
         _bossEntity = Instantiate(bossPrefab, bossSpawnLocation.position, Quaternion.identity).GetComponent<EntityStats>();
+        ApplyBonus.Invoke(_bossEntity);
+        
         for (int i = 0; i < advSpawnCount-1; i++)
         {
-            _adventurers.Add(SpawnAdventurer());
+            var advEntity = SpawnAdventurer();
+            ApplyBonus.Invoke(advEntity);
+            
+            _adventurers.Add(advEntity);
         }
-
+        var lastAdvEntity = SpawnAdventurer();
+        ApplyBonus.Invoke(_playerEntity);
+        _adventurers.Add(lastAdvEntity);
+        
         if (!isPlayingBoss)
         {
-            _playerEntity = SpawnAdventurer();
-            _adventurers.Add(_playerEntity);
+            _playerEntity = lastAdvEntity;
             _currAdventureIndex = advSpawnCount - 1;
         }
         else

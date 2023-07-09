@@ -6838,6 +6838,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 8537476568272487628, guid: 6d3234165f966084bb047c22a87260ed, type: 3}
+  cardSprites:
+  - {fileID: 21300000, guid: 840296bf943b7be418aacc0291e5dfc4, type: 3}
+  - {fileID: 21300000, guid: eb7463f3fc17dec4381b1dcf6a98e32f, type: 3}
+  - {fileID: 21300000, guid: 97a047a6bd53b20458ca341afc14cc6a, type: 3}
+  - {fileID: 21300000, guid: 29e515ade9cf85a489519a32d2778818, type: 3}
 --- !u!1 &1602328771
 GameObject:
   m_ObjectHideFlags: 0

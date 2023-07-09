@@ -123,4 +123,29 @@ public class EntityStats : MonoBehaviour
     {
         return attackSpeed;
     }
+
+    public void changeDamage(float change)
+    {
+        attackDamage += change;
+    }
+    
+    public void changeDefence(float change)
+    {
+        defense += change;
+    }
+    
+    public void changeSpeed(float change)
+    {
+        speed += change;
+    }
+
+    public void changeMaxHp(float change)
+    {
+        maxHealth += change;
+        _currentHealth = maxHealth;
+        if (GameManager.Instance.GetPlayerEntity() == this)
+        {
+            PlayerController.Instance.playerHealthbar.OnPlayerCharacterSwitch();
+        }
+    }
 }
