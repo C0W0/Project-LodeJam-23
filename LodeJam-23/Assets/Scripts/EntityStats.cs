@@ -20,7 +20,7 @@ public class EntityStats : MonoBehaviour
     private bool boss;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _currentHealth = maxHealth;
     }
@@ -75,7 +75,7 @@ public class EntityStats : MonoBehaviour
             PlayerController.Instance.OnPlayerDeath();
         }
         Debug.Log(gameObject.name + " has died.");
-        Destroy(gameObject);
+        GameManager.Instance.OnEntityDeath(this);
     }
 
     public void Attack(Vector2 targetPos)

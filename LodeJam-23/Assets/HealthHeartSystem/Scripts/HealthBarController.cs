@@ -13,11 +13,6 @@ public class HealthBarController : BaseHealthBar
     public Transform heartsParent;
     public GameObject heartContainerPrefab;
 
-    private void Start()
-    {
-        OnPlayerCharacterSwitch();
-    }
-
     public override void OnPlayerHealthChange()
     {
         UpdateHeartsHUD();

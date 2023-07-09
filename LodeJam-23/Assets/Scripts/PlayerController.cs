@@ -17,10 +17,6 @@ public class PlayerController : MonoBehaviour
     
     public bool IsPlayingBoss { get; private set; }
 
-    // test
-    [SerializeField]
-    private EntityStats _bossEntity, _advanturerEntity;
-    
     private float _dashingTimerInSec;
     private Vector2 _moveDirection = Vector2.zero;
     private float _scaleFactor = 1.0f;
@@ -73,10 +69,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             CameraController.Instance.FollowObject(_playerObject.transform);
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            GameManager.Instance.SwapPlayer(IsPlayingBoss ? _advanturerEntity : _bossEntity);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
@@ -152,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerDeath()
     {
+        // TODO: check if the player is playing adventurer and swap if yes
         Debug.Log("Player died");
         _playerEntity = null;
         _playerObject = null;
