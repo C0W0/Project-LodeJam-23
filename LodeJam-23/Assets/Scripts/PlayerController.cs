@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
         CameraController.Instance.FollowObject(_playerObject.transform);
         if(_playerObject.TryGetComponent<BaseAI>(out BaseAI baseAi))
             baseAi.enabled = false;
+        RefreshHealthBar();
     }
 
     // Update is called once per frame
