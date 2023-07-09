@@ -6727,7 +6727,7 @@ MonoBehaviour:
   - {fileID: 765906659}
   bossSpawnLocation: {fileID: 1804455080}
   adventurerPrefab: {fileID: 2323926893015601553, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
-  bossPrefab: {fileID: 2853987781408546893, guid: 3c54060568dc39a40b56382d11d35683, type: 3}
+  bossPrefab: {fileID: 7667008670495934718, guid: 3c54060568dc39a40b56382d11d35683, type: 3}
   adventurerSpawnCount: 5
 --- !u!4 &1849875494
 Transform:
