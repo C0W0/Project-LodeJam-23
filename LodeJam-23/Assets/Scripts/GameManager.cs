@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         }
         
         _bossEntity = Instantiate(_bossTemplate, bossSpawnLocation.position, Quaternion.identity).GetComponent<EntityStats>();
-        _bossEntity.changeSpeed(3);
+        _bossEntity.ChangeSpeed(3);
         for (int i = 0; i < advSpawnCount-1; i++)
         {
             var advEntity = SpawnAdventurer();
