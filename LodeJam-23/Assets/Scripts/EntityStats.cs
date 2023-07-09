@@ -83,11 +83,6 @@ public class EntityStats : MonoBehaviour
         projectileBase.Init(targetPos, this);
     }
 
-    public void ChangeSpeed(int speedIncrease)
-    {
-        speed += speedIncrease;
-    }
-
     public bool IsBoss()
     {
         return boss;
@@ -123,22 +118,27 @@ public class EntityStats : MonoBehaviour
         return attackSpeed;
     }
 
-    public void changeDamage(float change)
+    public void ChangeDamage(float change)
     {
         attackDamage += change;
     }
     
-    public void changeDefence(float change)
+    public void ChangeDefence(float change)
     {
         defense += change;
     }
     
-    public void changeSpeed(float change)
+    public void ChangeSpeed(float change)
     {
         speed += change;
     }
+    
+    public void ChangeBulletSpeed(float change)
+    {
+        attackSpeed += change;
+    }
 
-    public void changeMaxHp(float change)
+    public void ChangeMaxHp(float change)
     {
         maxHealth += change;
         _currentHealth = maxHealth;

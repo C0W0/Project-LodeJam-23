@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
         _adventurers = new List<EntityStats>();
         Destroy(_bossEntity.gameObject);
 
+        ProjectileManager.Instance.RemoveAllProjectiles();
+
         _isGameOngoing = false;
         
         if (isVictory)

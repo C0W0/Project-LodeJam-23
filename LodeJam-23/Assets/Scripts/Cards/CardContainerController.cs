@@ -17,7 +17,7 @@ public enum CardType
 
 public enum BonusType
 {
-    Damage, Speed, AmmoSpeed, Hp, Defence, Reload
+    Damage, Speed, AmmoSpeed, Hp, Defence, Spawn
 }
 
 public class CardContainerController : MonoBehaviour
@@ -60,8 +60,8 @@ public class CardContainerController : MonoBehaviour
                 return $"{pronoun} shoots faster rounds";
             case BonusType.Hp:
                 return $"{pronoun} receives {magnitudeFormatted} extra HP";
-            case BonusType.Reload:
-                return $"{pronoun} reloads faster";
+            case BonusType.Spawn:
+                return "One more adventurer will join the battle";
         }
         return "";
     }
@@ -82,8 +82,8 @@ public class CardContainerController : MonoBehaviour
                 return (4 - (int)card) / 2f;;
             case BonusType.Hp:
                 return randResult;
-            case BonusType.Reload:
-                return (4 - (int)card) / 2f;;
+            case BonusType.Spawn:
+                return 1;
         }
         return 0f;
     }
@@ -114,15 +114,18 @@ public class CardContainerController : MonoBehaviour
         var bonuses = Enum.GetValues(typeof(BonusType))     
             .OfType<BonusType>().OrderBy(_ => Guid.NewGuid()).ToList();
         _cards[0] = Instantiate(cardPrefab, this.transform);
-        _cards[0].GetComponent<CardController>().Init(1, GetRandomCard(), bonuses[Random.Range(0, 6)], bonuses[Random.Range(0, 6)]);
+        var cardType = GetRandomCard();
+        _cards[0].GetComponent<CardController>().Init(1, cardType, bonuses[Random.Range(0, 5)], bonuses[Random.Range(0, cardType==CardType.Diamond?6:5)]);
         _cards[0].transform.SetPositionAndRotation(_cards[0].transform.position - new Vector3(8 * _cards[0].GetComponent<RectTransform>().sizeDelta.x, 0), _cards[0].transform.rotation);
         
         _cards[1] = Instantiate(cardPrefab, this.transform);
-        _cards[1].GetComponent<CardController>().Init(2, GetRandomCard(), bonuses[Random.Range(0, 6)], bonuses[Random.Range(0, 6)]);
+        cardType = GetRandomCard();
+        _cards[1].GetComponent<CardController>().Init(2, cardType, bonuses[Random.Range(0, 5)], bonuses[Random.Range(0, cardType==CardType.Diamond?6:5)]);
         
         _cards[2] = Instantiate(cardPrefab, this.transform);
+        cardType = GetRandomCard();
         _cards[2].transform.SetPositionAndRotation(_cards[2].transform.position + new Vector3(8 * _cards[2].GetComponent<RectTransform>().sizeDelta.x, 0), _cards[2].transform.rotation);
-        _cards[2].GetComponent<CardController>().Init(3, GetRandomCard(), bonuses[Random.Range(0, 6)], bonuses[Random.Range(0, 6)]);
+        _cards[2].GetComponent<CardController>().Init(3, cardType, bonuses[Random.Range(0, 5)], bonuses[Random.Range(0, cardType==CardType.Diamond?6:5)]);
     }
 
     // Update is called once per frame

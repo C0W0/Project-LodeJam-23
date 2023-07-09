@@ -30,22 +30,22 @@ public class CardController : MonoBehaviour
             switch (bossBonus)
             {
                 case BonusType.Damage:
-                    entity.changeDamage(magnitude);
+                    entity.ChangeDamage(magnitude);
                     break;
                 case BonusType.Speed:
-                    entity.ChangeSpeed((int)magnitude);
+                    entity.ChangeSpeed(magnitude);
                     break;
                 case BonusType.Defence:
-                    entity.changeDefence(magnitude);
+                    entity.ChangeDefence(magnitude);
                     break;
                 case BonusType.AmmoSpeed:
-                    print("not implemented");
+                    entity.ChangeBulletSpeed(magnitude);
                     break;
                 case BonusType.Hp:
-                    entity.changeMaxHp(magnitude);
+                    entity.ChangeMaxHp(magnitude);
                     break;
-                case BonusType.Reload:
-                    print("not implemented");
+                case BonusType.Spawn:
+                    GameManager.Instance.adventurerSpawnCount ++;
                     break;
             }
         };

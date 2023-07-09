@@ -28,4 +28,13 @@ public class ProjectileManager : MonoBehaviour
         _projectiles.Remove(projectile);
         Destroy(projectile.gameObject);
     }
+
+    public void RemoveAllProjectiles()
+    {
+        foreach (var projectile in _projectiles)
+        {
+            Destroy(projectile.gameObject);
+        }
+        _projectiles = new HashSet<ProjectileBase>();
+    }
 }
