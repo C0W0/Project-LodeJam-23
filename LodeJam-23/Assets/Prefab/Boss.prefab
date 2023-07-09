@@ -182,10 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809b45d0a83cdc64eafa7abcf3de226c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromPlayer: 8
+  distanceFromPlayer: 20
   minChangeDirectionInterval: 1
   maxChangeDirectionInterval: 1
-  deadbandDistance: 1
-  rotationSpeed: 100
+  deadbandDistance: 30
+  rotationSpeed: 30
   minAttackInterval: 0
   maxAttackInterval: 2

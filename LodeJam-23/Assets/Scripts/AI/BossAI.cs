@@ -19,9 +19,15 @@ public class BossAI : BaseAI
     private Vector2 _direction; // current direction vector
     private float _changeDirectionInterval;
     private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
+    private bool _enabled = true;
 
     protected override void InitAI()
     {
+        if (GameManager.Instance.currAdventureIndex == -1)
+        {
+            enabled = false;
+            return;
+        }
         _direction = Random.insideUnitCircle.normalized; // initialize direction to zero vector
         _changeDirectionInterval = Random.Range(minChangeDirectionInterval, maxChangeDirectionInterval); // initialize changeDirectionInterval to a random value between minChangeDirectionInterval and maxChangeDirectionInterval
         _rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
@@ -29,6 +35,10 @@ public class BossAI : BaseAI
 
     protected override void UpdateMovement()
     {
+        if (enabled == false)
+        {
+            return;
+        }
         _timeSinceLastDirectionChange += Time.deltaTime;
 
         // Randomly change the "direction" to stay away from the player
@@ -57,7 +67,8 @@ public class BossAI : BaseAI
 
     protected override void UpdateAttack()
     {
-        if (_target == null)
+
+        if (_enabled == false)
             return; // no player to attack
 
         Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
