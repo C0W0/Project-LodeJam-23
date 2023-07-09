@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour
 			float x = Random.Range(-1f, 1f) * shakeMagnitude;
 			float y = Random.Range(-1f, 1f) * shakeMagnitude;
 
-			transform.localPosition = new Vector3(x, y, originalPos.z);
+			transform.localPosition += new Vector3(x, y, 0);
 
 			elapsed += Time.deltaTime;
 
