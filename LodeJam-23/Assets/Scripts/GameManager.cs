@@ -68,6 +68,11 @@ public class GameManager : MonoBehaviour
         StartLevel(isPlayingBoss, adventurerSpawnCount);
     }
 
+    public void RestartLevel()
+    {
+        StartLevel(PlayerController.Instance.IsPlayingBoss, adventurerSpawnCount);
+    }
+
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
         {
@@ -141,9 +146,7 @@ public class GameManager : MonoBehaviour
         else
         {
             ApplyBonus = _ => {};
-            // TODO: display defeat UI
             gameOverScreen.SetActive(true);
-            StartLevel(PlayerController.Instance.IsPlayingBoss, adventurerSpawnCount);
         }
         
     }
