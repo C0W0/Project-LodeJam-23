@@ -180,5 +180,10 @@ public class GameManager : MonoBehaviour
     {
         return _playerEntity;
     }
+
+    public EntityStats GetBossEntity()
+    {
+        return _bossEntity;
+    }
     
 }

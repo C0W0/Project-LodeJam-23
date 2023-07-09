@@ -6,7 +6,7 @@ public class BaseAI : MonoBehaviour
 {
     protected Rigidbody2D _rb;
     protected EntityStats _entity;
-    protected GameObject _playerObject;
+    protected GameObject _target;
 
     void Awake()
     {
@@ -16,7 +16,7 @@ public class BaseAI : MonoBehaviour
 
     void Start()
 	{
-		_playerObject = GameManager.Instance.GetPlayerEntity().gameObject;
+		_target = GameManager.Instance.GetBossEntity().gameObject;
         InitAI();
 	}
 
