@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         _adventurers = new List<EntityStats>();
         _isGameOngoing = false;
-        
+        ApplyBonus = entity => {};
+
         _bossTemplate = Instantiate(bossPrefab);
         _bossTemplate.SetActive(false);
         _adventurerTemplate = Instantiate(adventurerPrefab);
