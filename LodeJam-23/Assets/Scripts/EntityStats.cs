@@ -33,12 +33,6 @@ public class EntityStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (GameManager.Instance.GetPlayerEntity() == this)
-        {
-            PlayerController.Instance.OnPlayerHealthChange();
-            PlayerController.Instance.OnDamageTaken();
-        }
-        
         float damageTaken = damage - defense;
         if (damageTaken < 0)
         {
@@ -51,21 +45,21 @@ public class EntityStats : MonoBehaviour
             _currentHealth = 0;
             OnDeath();
         }
+        
+        if (GameManager.Instance.GetPlayerEntity() == this)
+        {
+            PlayerController.Instance.OnPlayerHealthChange();
+            PlayerController.Instance.OnDamageTaken();
+        }
     }
 
     public void Heal(float healAmount)
     {
+        _currentHealth = Math.Min(maxHealth, _currentHealth + healAmount);
         if (GameManager.Instance.GetPlayerEntity() == this)
         {
             PlayerController.Instance.OnPlayerHealthChange();
         }
-
-        _currentHealth = Math.Min(maxHealth, _currentHealth + healAmount);
-    }
-
-    public void Attack(EntityStats target)
-    {
-        // TODO
     }
 
     void OnDeath()
@@ -76,6 +70,11 @@ public class EntityStats : MonoBehaviour
         }
         Debug.Log(gameObject.name + " has died.");
         GameManager.Instance.OnEntityDeath(this);
+    }
+
+    public void Attack(EntityStats target)
+    {
+        Attack(target.transform.position);
     }
 
     public void Attack(Vector2 targetPos)

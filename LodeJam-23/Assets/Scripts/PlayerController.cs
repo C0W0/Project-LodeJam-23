@@ -127,14 +127,6 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
-    public IEnumerator SpeedBoost(int speed, float speedTime)
-    {
-        if(_playerEntity == null) yield break;
-        _playerEntity.ChangeSpeed(speed);
-        yield return new WaitForSeconds(speedTime);
-        _playerEntity.ChangeSpeed(-speed);
-    }
     
     private void Attack(Vector2 targetPos)
     {
