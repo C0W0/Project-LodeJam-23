@@ -6,10 +6,6 @@ using UnityEngine;
 public class ProjectileManager : MonoBehaviour
 {
     public static ProjectileManager Instance;
-
-    [SerializeField]
-    private GameObject projectilePrefab;
-
     private HashSet<ProjectileBase> _projectiles;
 
     void Awake()
