@@ -44,15 +44,12 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayer(EntityStats newPlayerEntity)
     {
-        if (newPlayerEntity.IsBoss() != IsPlayingBoss)
-        {
-            IsPlayingBoss = newPlayerEntity.IsBoss();
-            // TODO: boss swap logic
-        }
+        IsPlayingBoss = newPlayerEntity.IsBoss();
         _playerEntity = newPlayerEntity;
         _playerObject = newPlayerEntity.gameObject;
         _rigidbody2D = _playerObject.GetComponent<Rigidbody2D>();
         playerHealthbar.OnPlayerCharacterSwitch();
+        CameraController.Instance.FollowObject(_playerObject.transform);
     }
 
     // Update is called once per frame
@@ -74,6 +71,19 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             _playerEntity.TakeDamage(10);
+        }
+
+        if (IsPlayingBoss)
+            return;
+        
+        // cycling only works when playing as adventurers
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameManager.Instance.CycleAdvEntity(false);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            GameManager.Instance.CycleAdvEntity(true);
         }
     }
     
