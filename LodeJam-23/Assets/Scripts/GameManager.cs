@@ -98,6 +98,12 @@ public class GameManager : MonoBehaviour
 
     public void CycleAdvEntity(bool next)
     {
+        if (_currAdventureIndex == -1)
+        {
+            Debug.LogWarning("Cycling happened when playing as a boss");
+            return;
+        }
+        
         if (next)
         {
             _currAdventureIndex = _currAdventureIndex == _adventurers.Count-1 ? 0 : _currAdventureIndex+1;

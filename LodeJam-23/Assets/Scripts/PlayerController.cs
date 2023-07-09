@@ -67,7 +67,16 @@ public class PlayerController : MonoBehaviour
         {
             CameraController.Instance.FollowObject(_playerObject.transform);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        {
+            _playerEntity.TakeDamage(10);
+        }
+
+        if (IsPlayingBoss)
+            return;
         
+        // cycling only works when playing as adventurers
         if (Input.GetKeyDown(KeyCode.Q))
         {
             GameManager.Instance.CycleAdvEntity(false);
@@ -75,11 +84,6 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E))
         {
             GameManager.Instance.CycleAdvEntity(true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
-        {
-            _playerEntity.TakeDamage(10);
         }
     }
     
