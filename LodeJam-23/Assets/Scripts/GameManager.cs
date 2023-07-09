@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,6 +23,11 @@ public class GameManager : MonoBehaviour
     private GameObject adventurerPrefab, bossPrefab;
     [SerializeField] 
     private GameObject gameOverScreen;
+
+    [SerializeField]
+    private GameObject infoCard;
+    [SerializeField]
+    private TextMeshProUGUI infoText;
 
     public int adventurerSpawnCount = 5;
 
@@ -79,6 +85,9 @@ public class GameManager : MonoBehaviour
 
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
+        infoText.text = isPlayingBoss ? "You will play as the boss" : "You will join the adventurers";
+        infoCard.SetActive(true);
+        
         {
             gameOverScreen.SetActive(false);
             _bossTemplate.SetActive(true);
@@ -114,7 +123,6 @@ public class GameManager : MonoBehaviour
         }
         
         PlayerController.Instance.SetPlayer(_playerEntity);
-        _isGameOngoing = true;
     }
 
     private EntityStats SpawnAdventurer()
@@ -211,5 +219,10 @@ public class GameManager : MonoBehaviour
     {
         return _bossEntity;
     }
-    
+
+    public void ContinueGame()
+    {
+        _isGameOngoing = true;
+        infoCard.SetActive(false);
+    }
 }

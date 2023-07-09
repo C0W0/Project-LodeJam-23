@@ -41,7 +41,7 @@ public class BossAI : BaseAI
 
     protected override void UpdateMovement()
     {
-        if (enabled == false)
+        if (enabled == false || !GameManager.IsGameOngoing)
         {
             return;
         }
@@ -76,7 +76,7 @@ public class BossAI : BaseAI
     {
         _timeUntilAttack -= Time.deltaTime;
 
-        if (_enabled == false)
+        if (_enabled == false  || !GameManager.IsGameOngoing)
         {
             return; // no player to attack
         }
