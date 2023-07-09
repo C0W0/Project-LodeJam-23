@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private EntityStats _bossEntity;
     private List<EntityStats> _adventurers;
-    private GameObject _adventurerTemplate, _bossTemplate;
+    private GameObject _adventurerTemplate, _bossTemplate, _adventurerHealth;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
     public int currAdventureIndex
