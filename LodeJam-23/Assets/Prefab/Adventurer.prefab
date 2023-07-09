@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7551984087265253326
 SpriteRenderer:
@@ -105,6 +105,8 @@ MonoBehaviour:
   maxChangeDirectionInterval: 5
   deadbandDistance: 1
   rotationSpeed: 10
+  minAttackInterval: 2
+  maxAttackInterval: 5
 --- !u!114 &467163519770059112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,10 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a14a109c9260ec4e9c007f98c6d0302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  attackDamage: 10
-  defense: 5
+  maxHealth: 5
+  attackDamage: 2
+  defense: 1
   speed: 5
+  attackSpeed: 5
+  projectilePrefab: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
+  boss: 0
 --- !u!61 &5766447126792887190
 BoxCollider2D:
   m_ObjectHideFlags: 0

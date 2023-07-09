@@ -16,6 +16,8 @@ public class EntityStats : MonoBehaviour
     private float attackSpeed = 5;
     [SerializeField]
     private GameObject projectilePrefab;
+    [SerializeField]
+    private bool boss;
 
     // Start is called before the first frame update
     void Start()
@@ -27,36 +29,6 @@ public class EntityStats : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public float GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return _currentHealth;
-    }
-
-    public float GetAttack()
-    {
-        return attackDamage;
-    }
-
-    public float GetDefense()
-    {
-        return defense;
-    }
-
-    public float GetSpeed()
-    {
-        return speed;
-    }
-
-    public float GetAttackSpeed()
-    {
-        return attackSpeed;
     }
 
     public void TakeDamage(float damage)
@@ -71,6 +43,7 @@ public class EntityStats : MonoBehaviour
         {
             damageTaken = 0;
         }
+        
         _currentHealth -= damageTaken;
         if (_currentHealth < 0)
         {
@@ -105,5 +78,45 @@ public class EntityStats : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
         projectileBase.Init(targetPos, this);
+    }
+
+    public void ChangeSpeed(int speedIncrease)
+    {
+        speed += speedIncrease;
+    }
+
+    public bool IsBoss()
+    {
+        return boss;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return _currentHealth;
+    }
+
+    public float GetAttack()
+    {
+        return attackDamage;
+    }
+
+    public float GetDefense()
+    {
+        return defense;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
     }
 }

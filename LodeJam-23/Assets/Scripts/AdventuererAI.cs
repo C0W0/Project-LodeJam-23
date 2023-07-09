@@ -23,7 +23,6 @@ public class AdventurerAI : MonoBehaviour
 	private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
 
 	private EntityStats _entity;
-	private GameObject _playerObject;
 	
 	void Awake()
 	{
@@ -36,11 +35,11 @@ public class AdventurerAI : MonoBehaviour
 		_direction = Random.insideUnitCircle.normalized; // initialize direction to zero vector
 		_changeDirectionInterval = Random.Range(minChangeDirectionInterval, maxChangeDirectionInterval); // initialize changeDirectionInterval to a random value between minChangeDirectionInterval and maxChangeDirectionInterval
 		_rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
-		_playerObject = GameManager.Instance.GetPlayerEntity().gameObject;
 	}
 
 	void Update()
 	{
+		var playerObject = GameManager.Instance.GetPlayerEntity().gameObject;
 		_timeSinceLastDirectionChange += Time.deltaTime;
 		_timeSinceLastAttack += Time.deltaTime;
 
@@ -54,9 +53,9 @@ public class AdventurerAI : MonoBehaviour
 		// slowly rotate direction vector
 		_direction = Quaternion.Euler(0, 0, _rotateDirection * rotationSpeed * Time.deltaTime) * _direction;
 
-		if (_playerObject != null)
+		if (playerObject != null)
 		{
-			Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
+			Vector2 targetLocation = (Vector2)playerObject.transform.position + _direction * distanceFromPlayer;
 
 			Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
 			if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
@@ -68,7 +67,7 @@ public class AdventurerAI : MonoBehaviour
 				_rb.velocity = Vector2.zero;
 				if (_timeSinceLastAttack >= Random.Range(minAttackInterval, maxAttackInterval))
 				{
-					_entity.Attack(_playerObject.transform.position);
+					_entity.Attack(playerObject.transform.position);
 					_timeSinceLastAttack = 0f;
 				}
 			}

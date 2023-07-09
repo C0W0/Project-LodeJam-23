@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     // The player's body is swapped between the player and the enemy
     public void SwapPlayer(EntityStats newPlayer)
     {
+        // TODO: this is wrong
         _enemies.Add(playerEntity);
         SetPlayerEntity(newPlayer);
         _enemies.Remove(newPlayer);

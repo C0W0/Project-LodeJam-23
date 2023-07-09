@@ -5,4 +5,5 @@ using UnityEngine;
 public class BaseHealthBar : MonoBehaviour
 {
     public virtual void OnPlayerHealthChange() {}
+    public virtual void OnPlayerCharacterSwitch() {}
 }

@@ -15,17 +15,31 @@ public class HealthBarController : BaseHealthBar
 
     private void Start()
     {
-        // Should I use lists? Maybe :)
-        int maxHealth = (int)GameManager.Instance.GetPlayerEntity().GetMaxHealth();
-        heartContainers = new GameObject[maxHealth];
-        heartFills = new Image[maxHealth];
-
-        InstantiateHeartContainers();
-        UpdateHeartsHUD();
+        OnPlayerCharacterSwitch();
     }
 
     public override void OnPlayerHealthChange()
     {
+        UpdateHeartsHUD();
+    }
+
+    public override void OnPlayerCharacterSwitch()
+    {
+        // Should I use lists? Maybe :)
+        int maxHealth = (int)GameManager.Instance.GetPlayerEntity().GetMaxHealth();
+
+        if (heartContainers != null)
+        {
+            foreach (var obj in heartContainers)
+            {
+                Destroy(obj);
+            }
+        }
+        
+        heartContainers = new GameObject[maxHealth];
+        heartFills = new Image[maxHealth];
+
+        InstantiateHeartContainers();
         UpdateHeartsHUD();
     }
 

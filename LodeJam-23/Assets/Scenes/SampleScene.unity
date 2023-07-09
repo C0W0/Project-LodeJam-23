@@ -272,6 +272,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187810011}
   m_CullTransparentMesh: 1
+--- !u!114 &282778121 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 467163519770059112, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
+  m_PrefabInstance: {fileID: 1340945346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a14a109c9260ec4e9c007f98c6d0302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &317923288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,12 +1072,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a14a109c9260ec4e9c007f98c6d0302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  attackDamage: 10
-  defense: 5
+  maxHealth: 20
+  attackDamage: 3
+  defense: 1
   speed: 3
   attackSpeed: 5
   projectilePrefab: {fileID: 4080319307703593327, guid: 6966a49f472972f43a3d74aed187e74e, type: 3}
+  boss: 1
 --- !u!1 &735404983
 GameObject:
   m_ObjectHideFlags: 0
@@ -6865,10 +6877,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 467163519770059112, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
-      propertyPath: projectilePrefab
-      value: 
-      objectReference: {fileID: 4080319307703593327, guid: eef9528d26e84f499bbe6743b8f7a73a, type: 3}
     - target: {fileID: 2323926893015601553, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
       propertyPath: m_Name
       value: Adventurer
@@ -7392,7 +7400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthbar: {fileID: 1662398370}
-  speed: 3
+  _bossEntity: {fileID: 646931676}
+  _advanturerEntity: {fileID: 282778121}
 --- !u!224 &1963951725
 RectTransform:
   m_ObjectHideFlags: 0

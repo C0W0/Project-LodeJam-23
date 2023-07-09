@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     
     public BaseHealthBar playerHealthbar;
-    // TODO: get rid of this and use playerEntity
+    
+    public bool IsPlayingBoss { get; private set; }
+
+    // test
     [SerializeField]
-    private float speed;
+    private EntityStats _bossEntity, _advanturerEntity;
     
     private float _dashingTimerInSec;
     private Vector2 _moveDirection = Vector2.zero;
@@ -45,9 +48,15 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayer(EntityStats newPlayerEntity)
     {
+        if (newPlayerEntity.IsBoss() != IsPlayingBoss)
+        {
+            IsPlayingBoss = newPlayerEntity.IsBoss();
+            // TODO: boss swap logic
+        }
         _playerEntity = newPlayerEntity;
         _playerObject = newPlayerEntity.gameObject;
         _rigidbody2D = _playerObject.GetComponent<Rigidbody2D>();
+        playerHealthbar.OnPlayerCharacterSwitch();
     }
 
     // Update is called once per frame
@@ -62,6 +71,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             CameraController.Instance.FollowObject(_playerObject.transform);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameManager.Instance.SwapPlayer(IsPlayingBoss ? _advanturerEntity : _bossEntity);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
@@ -94,7 +107,7 @@ public class PlayerController : MonoBehaviour
         }
         if (_moveDirection.magnitude != 0f)
         {
-            _scaleFactor = speed / _moveDirection.magnitude;
+            _scaleFactor = _playerEntity.GetSpeed() / _moveDirection.magnitude;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 _scaleFactor *= 2;
@@ -108,25 +121,15 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    public void IncreaseSpeed(int speedDelta)
-    {
-        speed += speedDelta;
-    }
-
     public IEnumerator SpeedBoost(int speed, float speedTime)
     {
-        IncreaseSpeed(speed);
+        _playerEntity.ChangeSpeed(speed);
         yield return new WaitForSeconds(speedTime);
-        IncreaseSpeed(-speed);
+        _playerEntity.ChangeSpeed(-speed);
     }
     
     private void Attack(Vector2 targetPos)
     {
         _playerEntity.Attack(targetPos);
-    }
-
-    public void OnPlayerHealthChange()
-    {
-        playerHealthbar.OnPlayerHealthChange();
     }
 }
