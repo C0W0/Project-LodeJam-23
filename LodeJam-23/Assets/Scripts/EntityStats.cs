@@ -70,6 +70,10 @@ public class EntityStats : MonoBehaviour
 
     void OnDeath()
     {
+        if (GameManager.Instance.GetPlayerEntity() == this)
+        {
+            PlayerController.Instance.OnPlayerDeath();
+        }
         Debug.Log(gameObject.name + " has died.");
         Destroy(gameObject);
     }
