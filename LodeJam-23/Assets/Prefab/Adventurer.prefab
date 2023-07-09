@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 467163519770059112}
   - component: {fileID: 5766447126792887190}
   - component: {fileID: 6135445746573419561}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Adventurer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

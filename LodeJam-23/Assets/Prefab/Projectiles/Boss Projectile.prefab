@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3944579082512152787}
   - component: {fileID: 7515982712909739053}
   - component: {fileID: 7309764196161900082}
-  m_Layer: 6
-  m_Name: Crazy Projectile
+  m_Layer: 7
+  m_Name: Boss Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
