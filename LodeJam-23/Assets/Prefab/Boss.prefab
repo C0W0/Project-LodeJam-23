@@ -185,7 +185,7 @@ MonoBehaviour:
   distanceFromPlayer: 20
   minChangeDirectionInterval: 1
   maxChangeDirectionInterval: 1
-  deadbandDistance: 30
+  deadbandDistance: 10
   rotationSpeed: 30
   minAttackInterval: 0
   maxAttackInterval: 2

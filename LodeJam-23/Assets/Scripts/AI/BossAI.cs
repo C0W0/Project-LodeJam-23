@@ -74,11 +74,7 @@ public class BossAI : BaseAI
             return; // no player to attack
         }
 
-        Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
-        if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
-        {
-            return; // too far
-        }
+
         if (_timeSinceLastAttack < Random.Range(minAttackInterval, maxAttackInterval))
             return; // too soon
 
