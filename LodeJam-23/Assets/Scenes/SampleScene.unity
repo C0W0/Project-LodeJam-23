@@ -6784,7 +6784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804455079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.72, y: -1.41, z: 0}
+  m_LocalPosition: {x: -1.75, y: -5.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6922,7 +6922,7 @@ MonoBehaviour:
   - {fileID: 765906659}
   bossSpawnLocation: {fileID: 1804455080}
   adventurerPrefab: {fileID: 2323926893015601553, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
-  bossPrefab: {fileID: 2853987781408546893, guid: 3c54060568dc39a40b56382d11d35683, type: 3}
+  bossPrefab: {fileID: 7667008670495934718, guid: 3c54060568dc39a40b56382d11d35683, type: 3}
   adventurerSpawnCount: 5
 --- !u!4 &1849875494
 Transform:
