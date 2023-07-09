@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
-            _playerEntity.TakeDamage(10);
+            _playerEntity.TakeDamage(10, gameObject);
         }
 
         if (IsPlayingBoss)

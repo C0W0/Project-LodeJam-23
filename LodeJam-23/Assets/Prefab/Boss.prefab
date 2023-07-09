@@ -147,9 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809b45d0a83cdc64eafa7abcf3de226c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceFromPlayer: 20
-  minChangeDirectionInterval: 1
-  maxChangeDirectionInterval: 1
+  distanceFromPlayer: 2
+  minChangeDirectionInterval: 2
+  maxChangeDirectionInterval: 5
   deadbandDistance: 30
   rotationSpeed: 30
   minAttackInterval: 0
@@ -200,14 +200,16 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7667008670495934718}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 809b45d0a83cdc64eafa7abcf3de226c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceFromPlayer: 20
-  minChangeDirectionInterval: 1
-  maxChangeDirectionInterval: 1
-  deadbandDistance: 30
-  rotationSpeed: 30
-  minAttackInterval: 0
-  maxAttackInterval: 2
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
