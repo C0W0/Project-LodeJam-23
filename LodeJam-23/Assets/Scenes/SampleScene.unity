@@ -1062,9 +1062,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 629550519
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -6838,11 +6838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 8537476568272487628, guid: 6d3234165f966084bb047c22a87260ed, type: 3}
-  cardSprites:
-  - {fileID: 21300000, guid: 840296bf943b7be418aacc0291e5dfc4, type: 3}
-  - {fileID: 21300000, guid: eb7463f3fc17dec4381b1dcf6a98e32f, type: 3}
-  - {fileID: 21300000, guid: 97a047a6bd53b20458ca341afc14cc6a, type: 3}
-  - {fileID: 21300000, guid: 29e515ade9cf85a489519a32d2778818, type: 3}
+  cardSprites: []
 --- !u!1 &1602328771
 GameObject:
   m_ObjectHideFlags: 0
@@ -7252,6 +7248,7 @@ MonoBehaviour:
   bossSpawnLocation: {fileID: 1804455080}
   adventurerPrefab: {fileID: 2323926893015601553, guid: e35f4f9d2e55efb4391b6146972619c3, type: 3}
   bossPrefab: {fileID: 2853987781408546893, guid: 3c54060568dc39a40b56382d11d35683, type: 3}
+  adventurerSpawnCount: 5
 --- !u!4 &1849875494
 Transform:
   m_ObjectHideFlags: 0
@@ -7738,8 +7735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171fa947854b05741a7cbc0617f4ff1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 1
-  respawnCooldown: 3
+  effectDuration: 0
+  respawnCooldown: 0
 --- !u!212 &2122395886
 SpriteRenderer:
   m_ObjectHideFlags: 0
