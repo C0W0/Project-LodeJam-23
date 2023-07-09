@@ -150,8 +150,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        // TODO: check if the player is playing adventurer and swap if yes
-        Debug.Log("Player died");
+        if (!IsPlayingBoss)
+        {
+            if (GameManager.Instance.TryCycleAdvEntity(true))
+            {
+                return;
+            }
+        }
         _playerEntity = null;
         _playerObject = null;
         _rigidbody2D = null;
