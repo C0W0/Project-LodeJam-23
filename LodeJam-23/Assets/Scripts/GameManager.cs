@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartLevel(true, 5);
+        StartLevel(false, 5);
     }
 
     void Update()
@@ -153,6 +153,11 @@ public class GameManager : MonoBehaviour
     public EntityStats GetPlayerEntity()
     {
         return _playerEntity;
+    }
+
+    public EntityStats GetBossEntity()
+    {
+        return _bossEntity;
     }
     
 }

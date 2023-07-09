@@ -43,10 +43,10 @@ public class AdventurerAI : BaseAI
 		// Slowly rotate direction vector
 		_direction = Quaternion.Euler(0, 0, _rotateDirection * rotationSpeed * Time.deltaTime) * _direction;
 
-		if (_playerObject == null)
+		if (_target == null)
 			return; // no player to move towards
 
-		Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
+		Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
 		Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
 		if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
 			_rb.velocity = directionToTarget * _entity.GetSpeed();
@@ -59,16 +59,16 @@ public class AdventurerAI : BaseAI
 	{
 		_timeSinceLastAttack += Time.deltaTime;
 
-		if (_playerObject == null)
+		if (_target == null)
 			return; // no player to attack
 
-		Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
+		Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
 		if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
 			return; // too far
 
 		if (_timeSinceLastAttack < Random.Range(minAttackInterval, maxAttackInterval))
 			return; // too soon
-		_entity.Attack(_playerObject.transform.position);
+		_entity.Attack(_target.transform.position);
 		_timeSinceLastAttack = 0f;
 	}
 }
