@@ -12,19 +12,19 @@ public class GameManager : MonoBehaviour
     private List<Transform> adventurerSpawnLocations;
     [SerializeField]
     private Transform bossSpawnLocation;
-
     [SerializeField]
     private GameObject adventurerPrefab, bossPrefab;
 
     private EntityStats _bossEntity;
-    private Dictionary<EntityStats, int> _adventurers;
-    private EntityStats _playerEntity;
+    private List<EntityStats> _adventurers;
 
+    private int _currAdventureIndex; // -1 meaning playing the boss
+    private EntityStats _playerEntity;
 
     void Awake()
     {
         Instance = this;
-        _adventurers = new Dictionary<EntityStats, int>();
+        _adventurers = new List<EntityStats>();
     }
 
     void Start()
@@ -45,17 +45,19 @@ public class GameManager : MonoBehaviour
         _bossEntity = Instantiate(bossPrefab, bossSpawnLocation.position, Quaternion.identity).GetComponent<EntityStats>();
         for (int i = 0; i < advSpawnCount-1; i++)
         {
-            _adventurers.Add(SpawnAdventurer(), i);
+            _adventurers.Add(SpawnAdventurer());
         }
 
         if (!isPlayingBoss)
         {
             _playerEntity = SpawnAdventurer();
-            _adventurers.Add(_playerEntity, advSpawnCount-1);
+            _adventurers.Add(_playerEntity);
+            _currAdventureIndex = advSpawnCount - 1;
         }
         else
         {
             _playerEntity = _bossEntity;
+            _currAdventureIndex = -1;
         }
         
         PlayerController.Instance.SetPlayer(_playerEntity);
@@ -88,17 +90,23 @@ public class GameManager : MonoBehaviour
         Destroy(entity.gameObject);
     }
 
-    // The player's body is swapped between the player and the enemy
-    public void SwapPlayer(EntityStats newPlayer)
-    {
-        // TODO: this is wrong
-        SetPlayerEntity(newPlayer);
-    }
-
     private void SetPlayerEntity(EntityStats newPlayer)
     {
         _playerEntity = newPlayer;
         PlayerController.Instance.SetPlayer(newPlayer);
+    }
+
+    public void CycleAdvEntity(bool next)
+    {
+        if (next)
+        {
+            _currAdventureIndex = _currAdventureIndex == _adventurers.Count-1 ? 0 : _currAdventureIndex+1;
+        }
+        else
+        {
+            _currAdventureIndex = _currAdventureIndex == 0 ? _adventurers.Count-1 : _currAdventureIndex-1;
+        }
+        SetPlayerEntity(_adventurers[_currAdventureIndex]);
     }
 
     public EntityStats GetPlayerEntity()
