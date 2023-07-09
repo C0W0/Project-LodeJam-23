@@ -15,7 +15,7 @@ public class BossAI : BaseAI
     public float minAttackInterval = 0f; // minimum time interval to attack
     public float maxAttackInterval = 1f; // maximum time interval to attack
     private float _timeSinceLastDirectionChange = 0f; // time since last direction change
-    private float _timeSinceLastAttack = 0f; // time since last attack
+    private float _timeUntilAttack = 0f;
     private Vector2 _direction; // current direction vector
     private float _changeDirectionInterval;
     private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
@@ -74,7 +74,7 @@ public class BossAI : BaseAI
 
     protected override void UpdateAttack()
     {
-        _timeSinceLastAttack += Time.deltaTime;
+        _timeUntilAttack -= Time.deltaTime;
 
         if (_enabled == false)
         {
@@ -82,7 +82,7 @@ public class BossAI : BaseAI
         }
 
 
-        if (_timeSinceLastAttack < Random.Range(minAttackInterval, maxAttackInterval))
+        if (_timeUntilAttack > 0)
             return; // too soon
 
         // Attack in a cross pattern
@@ -96,7 +96,7 @@ public class BossAI : BaseAI
             _entity.Attack(attackDirections[i]);
         }
 
-        _timeSinceLastAttack = 0f;
+        _timeUntilAttack = Random.Range(minAttackInterval, maxAttackInterval);
     }
 }
 
