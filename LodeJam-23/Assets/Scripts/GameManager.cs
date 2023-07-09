@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     private GameObject _adventurerTemplate, _bossTemplate;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
+    public int currAdventureIndex
+    {
+        get { return _currAdventureIndex; }
+        set { _currAdventureIndex = value; }
+    }
     private EntityStats _playerEntity;
 
     private bool _isGameOngoing;
@@ -58,7 +63,7 @@ public class GameManager : MonoBehaviour
     public void StartNewLevel()
     {
         bool isPlayingBoss = Random.Range(-1f, 1f) >= 0;
-        StartLevel(isPlayingBoss, adventurerSpawnCount);
+        StartLevel(false, adventurerSpawnCount);
     }
 
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
@@ -97,7 +102,6 @@ public class GameManager : MonoBehaviour
         }
         
         PlayerController.Instance.SetPlayer(_playerEntity);
-        PlayerController.Instance.playerHealthbar.OnPlayerCharacterSwitch();
         _isGameOngoing = true;
     }
 
@@ -157,12 +161,17 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.SetPlayer(newPlayer);
     }
 
-    public void CycleAdvEntity(bool next)
+    public bool TryCycleAdvEntity(bool next)
     {
         if (_currAdventureIndex == -1)
         {
             Debug.LogWarning("Cycling happened when playing as a boss");
-            return;
+            return false;
+        }
+
+        if (_adventurers.Count <= 1)
+        {
+            return false;
         }
         
         if (next)
@@ -174,6 +183,7 @@ public class GameManager : MonoBehaviour
             _currAdventureIndex = _currAdventureIndex == 0 ? _adventurers.Count-1 : _currAdventureIndex-1;
         }
         SetPlayerEntity(_adventurers[_currAdventureIndex]);
+        return true;
     }
 
     public EntityStats GetPlayerEntity()

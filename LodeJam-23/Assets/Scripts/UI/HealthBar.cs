@@ -18,7 +18,7 @@ public class HealthBar : BaseHealthBar
         slider.value = health;
     }
     
-    public override void OnPlayerHealthChange()
+    public override void OnEntityHealthChange()
     {
         SetHealth(GameManager.Instance.GetPlayerEntity().GetCurrentHealth());
     }

@@ -145,7 +145,7 @@ public class EntityStats : MonoBehaviour
         _currentHealth = maxHealth;
         if (GameManager.Instance.GetPlayerEntity() == this)
         {
-            PlayerController.Instance.playerHealthbar.OnPlayerCharacterSwitch();
+            PlayerController.Instance.RefreshHealthBar();
         }
     }
 }
