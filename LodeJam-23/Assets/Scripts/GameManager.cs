@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject adventurerPrefab, bossPrefab;
 
+    public int adventurerSpawnCount = 5;
+
     private EntityStats _bossEntity;
     private List<EntityStats> _adventurers;
     private GameObject _adventurerTemplate, _bossTemplate;
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         _adventurers = new List<EntityStats>();
         _isGameOngoing = false;
-        ApplyBonus = entity => {};
+        ApplyBonus = _ => {};
 
         _bossTemplate = Instantiate(bossPrefab);
         _bossTemplate.SetActive(false);
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartLevel(true, 5);
+        StartNewLevel();
     }
 
     void Update()
@@ -53,7 +55,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartLevel(bool isPlayingBoss, int advSpawnCount)
+    public void StartNewLevel()
+    {
+        bool isPlayingBoss = Random.Range(-1f, 1f) >= 0;
+        StartLevel(isPlayingBoss, adventurerSpawnCount);
+    }
+
+    private void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
         {
             _bossTemplate.SetActive(true);
@@ -107,9 +115,27 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        
+
+        foreach (var entity in _adventurers)
+        {
+            Destroy(entity.gameObject);
+        }
+        _adventurers = new List<EntityStats>();
+        Destroy(_bossEntity.gameObject);
+
         _isGameOngoing = false;
-        CardContainerController.Instance.CreateThreeCards();
+        
+        if (isVictory)
+        {
+            CardContainerController.Instance.CreateThreeCards();
+        }
+        else
+        {
+            ApplyBonus = _ => {};
+            // TODO: display defeat UI
+            StartLevel(PlayerController.Instance.IsPlayingBoss, adventurerSpawnCount);
+        }
+        
     }
 
     public void OnEntityDeath(EntityStats entity)

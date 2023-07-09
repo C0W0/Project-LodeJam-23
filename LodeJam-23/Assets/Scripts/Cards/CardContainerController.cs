@@ -69,8 +69,7 @@ public class CardContainerController : MonoBehaviour
     public static float GetMagnitude(CardType card, BonusType bonus)
     {
         int randOffset = Random.Range(-1, 2);
-        int val = 4 - (int)card + card == CardType.Diamond ? randOffset + 1 : randOffset;
-        int randResult = Math.Max(1, val);
+        int randResult = 6 - (int)card + randOffset + (card == CardType.Diamond ? 1 : 0);
         switch (bonus)
         {
             case BonusType.Damage:
@@ -158,5 +157,6 @@ public class CardContainerController : MonoBehaviour
         }
 
         _cards = new GameObject[3];
+        GameManager.Instance.StartNewLevel();
     }
 }
