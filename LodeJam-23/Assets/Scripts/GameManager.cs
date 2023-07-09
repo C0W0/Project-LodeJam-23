@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+    }
+
+    void Start()
+    {
         PlayerController.Instance.SetPlayer(playerEntity);
 
         // add every single EntityStats in the scene to the enemies set except for the player

@@ -473,7 +473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &390462990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -539,8 +539,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 646931676}
+        m_TargetAssemblyTypeName: EntityStats, Assembly-CSharp
         m_MethodName: Heal
         m_Mode: 4
         m_Arguments:
@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &455062164
 RectTransform:
   m_ObjectHideFlags: 0
@@ -673,15 +673,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Hurt
+      - m_Target: {fileID: 646931676}
+        m_TargetAssemblyTypeName: EntityStats, Assembly-CSharp
+        m_MethodName: TakeDamage
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0.25
+          m_FloatArgument: 10
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a14a109c9260ec4e9c007f98c6d0302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10
   attackDamage: 10
   defense: 5
   speed: 3
@@ -1101,7 +1101,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.0734901, y: 46.6}
+  m_AnchoredPosition: {x: -56, y: 58.2}
   m_SizeDelta: {x: 135, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &735404985
@@ -1121,7 +1121,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 8, y: 7}
@@ -7391,6 +7391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dab35977f844e47828236ade0d4c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealthbar: {fileID: 1662398370}
   speed: 3
 --- !u!224 &1963951725
 RectTransform:
@@ -7658,7 +7659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2085910704
 RectTransform:
   m_ObjectHideFlags: 0

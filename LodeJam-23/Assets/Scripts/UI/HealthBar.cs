@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IPlayerHealthbar
-{
-    public void OnPlayerHealthChange();
-}
-
-public class HealthBar : MonoBehaviour, IPlayerHealthbar
+public class HealthBar : BaseHealthBar
 {
     public Slider slider;
 
@@ -23,7 +18,7 @@ public class HealthBar : MonoBehaviour, IPlayerHealthbar
         slider.value = health;
     }
     
-    public void OnPlayerHealthChange()
+    public override void OnPlayerHealthChange()
     {
         SetHealth(GameManager.Instance.GetPlayerEntity().GetCurrentHealth());
     }

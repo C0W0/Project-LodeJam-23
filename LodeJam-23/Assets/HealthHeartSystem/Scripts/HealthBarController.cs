@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarController : MonoBehaviour, IPlayerHealthbar
+public class HealthBarController : BaseHealthBar
 {
     private GameObject[] heartContainers;
     private Image[] heartFills;
@@ -24,7 +24,7 @@ public class HealthBarController : MonoBehaviour, IPlayerHealthbar
         UpdateHeartsHUD();
     }
 
-    public void OnPlayerHealthChange()
+    public override void OnPlayerHealthChange()
     {
         UpdateHeartsHUD();
     }

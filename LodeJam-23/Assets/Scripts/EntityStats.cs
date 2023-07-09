@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class EntityStats : MonoBehaviour
 {
     [SerializeField]
-    private float maxHealth = 100;
+    private float maxHealth = 10;
     private float _currentHealth;
     [SerializeField]
     private float attackDamage = 10;
@@ -58,11 +59,11 @@ public class EntityStats : MonoBehaviour
         return attackSpeed;
     }
 
-    public float TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         if (GameManager.Instance.GetPlayerEntity() == this)
         {
-            PlayerController.Instance.PlayerHealthbar.OnPlayerHealthChange();
+            PlayerController.Instance.playerHealthbar.OnPlayerHealthChange();
         }
         
         float damageTaken = damage - defense;
@@ -76,7 +77,16 @@ public class EntityStats : MonoBehaviour
             _currentHealth = 0;
             OnDeath();
         }
-        return damageTaken;
+    }
+
+    public void Heal(float healAmount)
+    {
+        if (GameManager.Instance.GetPlayerEntity() == this)
+        {
+            PlayerController.Instance.playerHealthbar.OnPlayerHealthChange();
+        }
+
+        _currentHealth = Math.Min(maxHealth, _currentHealth + healAmount);
     }
 
     public void Attack(EntityStats target)

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private GameObject _playerObject;
     private Rigidbody2D _rigidbody2D;
     
-    public IPlayerHealthbar PlayerHealthbar;
+    public BaseHealthBar playerHealthbar;
     // TODO: get rid of this and use playerEntity
     [SerializeField]
     private float speed;
@@ -127,6 +127,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerHealthChange()
     {
-        PlayerHealthbar.OnPlayerHealthChange();
+        playerHealthbar.OnPlayerHealthChange();
     }
 }
