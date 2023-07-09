@@ -105,6 +105,8 @@ MonoBehaviour:
   maxChangeDirectionInterval: 5
   deadbandDistance: 1
   rotationSpeed: 10
+  minAttackInterval: 2
+  maxAttackInterval: 5
 --- !u!114 &467163519770059112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +123,8 @@ MonoBehaviour:
   attackDamage: 10
   defense: 5
   speed: 5
+  attackSpeed: 1
+  projectilePrefab: {fileID: 0}
 --- !u!61 &5766447126792887190
 BoxCollider2D:
   m_ObjectHideFlags: 0
