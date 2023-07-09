@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f69c5a11d34cef92d112e2988492ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounceCount: 3
-  bounceMultiplier: 5
-  pierceCount: 3
+  bounceCount: 2
+  bounceMultiplier: 2
   bounceSpeedMultiplier: 1.1

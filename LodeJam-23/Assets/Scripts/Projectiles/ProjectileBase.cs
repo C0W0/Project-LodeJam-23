@@ -11,7 +11,6 @@ public class ProjectileBase : MonoBehaviour
     private Vector2 _direction;
     public int bounceCount = 0;
     public int bounceMultiplier = 1;
-    public int pierceCount = 0;
     public float bounceSpeedMultiplier = 1f;
 
     void Awake()
@@ -34,15 +33,14 @@ public class ProjectileBase : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(_speed * Time.deltaTime * _direction);
         if (!CameraController.IsInScene(transform.position))
             ProjectileManager.Instance.RemoveProjectile(this);
     }
 
-    private void OnCollisionLeave2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.Equals(_owner))
             _owner = null;
@@ -52,17 +50,13 @@ public class ProjectileBase : MonoBehaviour
     {
         if (collision.gameObject.Equals(_owner))
             return;
-        if (collision.gameObject.TryGetComponent<ProjectileBase>(out ProjectileBase projectileBase))
+        if (collision.gameObject.TryGetComponent<ProjectileBase>(out ProjectileBase _))
             return;
         if (collision.gameObject.TryGetComponent<EntityStats>(out EntityStats entityStats))
         {
             // Hit an entity
             entityStats.TakeDamage(_damage);
-            if (pierceCount <= 0){
-                ProjectileManager.Instance.RemoveProjectile(this);
-                return;
-            }
-            pierceCount--;
+            ProjectileManager.Instance.RemoveProjectile(this);
         }
         else
         {

@@ -5,10 +5,8 @@ using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AdventurerAI : MonoBehaviour
+public class AdventurerAI : BaseAI
 {
-	private Rigidbody2D _rb;
-
 	public float distanceFromPlayer = 5f;
 	public float minChangeDirectionInterval = 2f; // minimum time interval to change direction
 	public float maxChangeDirectionInterval = 5f; // maximum time interval to change direction
@@ -22,27 +20,19 @@ public class AdventurerAI : MonoBehaviour
 	private float _changeDirectionInterval;
 	private int _rotateDirection; // 1 for clockwise, -1 for counterclockwise
 
-	private EntityStats _entity;
-	
-	void Awake()
-	{
-		_rb = GetComponent<Rigidbody2D>();
-		_entity = GetComponent<EntityStats>();
-	}
-
-	void Start()
+	protected override void InitAI()
 	{
 		_direction = Random.insideUnitCircle.normalized; // initialize direction to zero vector
 		_changeDirectionInterval = Random.Range(minChangeDirectionInterval, maxChangeDirectionInterval); // initialize changeDirectionInterval to a random value between minChangeDirectionInterval and maxChangeDirectionInterval
 		_rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
 	}
 
-	void Update()
+	protected override void UpdateMovement()
 	{
-		var playerObject = GameManager.Instance.GetPlayerEntity().gameObject;
 		_timeSinceLastDirectionChange += Time.deltaTime;
-		_timeSinceLastAttack += Time.deltaTime;
 
+		// Randomly change the "direction" to stay away from the player
+		// On a random interval
 		if (_timeSinceLastDirectionChange >= _changeDirectionInterval)
 		{
 			_direction = Random.insideUnitCircle.normalized;
@@ -50,28 +40,36 @@ public class AdventurerAI : MonoBehaviour
 			_timeSinceLastDirectionChange = 0f;
 			_changeDirectionInterval = Random.Range(minChangeDirectionInterval, maxChangeDirectionInterval); // set a new random value for changeDirectionInterval
 		}
-		// slowly rotate direction vector
+		// Slowly rotate direction vector
 		_direction = Quaternion.Euler(0, 0, _rotateDirection * rotationSpeed * Time.deltaTime) * _direction;
 
-		if (playerObject != null)
-		{
-			Vector2 targetLocation = (Vector2)playerObject.transform.position + _direction * distanceFromPlayer;
+		if (_playerObject == null)
+			return; // no player to move towards
 
-			Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
-			if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
-			{
-				_rb.velocity = directionToTarget * _entity.GetSpeed();
-			}
-			else
-			{
-				_rb.velocity = Vector2.zero;
-				if (_timeSinceLastAttack >= Random.Range(minAttackInterval, maxAttackInterval))
-				{
-					_entity.Attack(playerObject.transform.position);
-					_timeSinceLastAttack = 0f;
-				}
-			}
-		}
+		Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
+		Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
+		if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
+			_rb.velocity = directionToTarget * _entity.GetSpeed();
+		else
+			_rb.velocity = Vector2.zero;
+	}
+
+
+	protected override void UpdateAttack()
+	{
+		_timeSinceLastAttack += Time.deltaTime;
+
+		if (_playerObject == null)
+			return; // no player to attack
+
+		Vector2 targetLocation = (Vector2)_playerObject.transform.position + _direction * distanceFromPlayer;
+		if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
+			return; // too far
+
+		if (_timeSinceLastAttack < Random.Range(minAttackInterval, maxAttackInterval))
+			return; // too soon
+		_entity.Attack(_playerObject.transform.position);
+		_timeSinceLastAttack = 0f;
 	}
 }
 
