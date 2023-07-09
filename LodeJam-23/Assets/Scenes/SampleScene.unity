@@ -830,7 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLimit:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 10, y: 10, z: 0}
+    m_Extent: {x: 20, y: 10, z: 0}
 --- !u!1 &523791618
 GameObject:
   m_ObjectHideFlags: 0
