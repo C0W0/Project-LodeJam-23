@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     private EntityStats _bossEntity;
     private List<EntityStats> _adventurers;
+    private GameObject _adventurerTemplate, _bossTemplate;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
     private EntityStats _playerEntity;
@@ -31,7 +32,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
         _adventurers = new List<EntityStats>();
         _isGameOngoing = false;
-        ApplyBonus = entity => {};
+        
+        _bossTemplate = Instantiate(bossPrefab);
+        _bossTemplate.SetActive(false);
+        _adventurerTemplate = Instantiate(adventurerPrefab);
+        _adventurerTemplate.SetActive(false);
     }
 
     void Start()
@@ -49,19 +54,27 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
-        _bossEntity = Instantiate(bossPrefab, bossSpawnLocation.position, Quaternion.identity).GetComponent<EntityStats>();
-        ApplyBonus.Invoke(_bossEntity);
+        {
+            _bossTemplate.SetActive(true);
+            _adventurerTemplate.SetActive(true);
+            var baseBossEntity = _bossTemplate.GetComponent<EntityStats>();
+            var baseAdvEntity = _adventurerTemplate.GetComponent<EntityStats>();
+            ApplyBonus.Invoke(baseBossEntity);
+            ApplyBonus.Invoke(baseAdvEntity);
+        }
         
+        _bossEntity = Instantiate(_bossTemplate, bossSpawnLocation.position, Quaternion.identity).GetComponent<EntityStats>();
+
         for (int i = 0; i < advSpawnCount-1; i++)
         {
             var advEntity = SpawnAdventurer();
-            ApplyBonus.Invoke(advEntity);
-            
             _adventurers.Add(advEntity);
         }
         var lastAdvEntity = SpawnAdventurer();
-        ApplyBonus.Invoke(_playerEntity);
         _adventurers.Add(lastAdvEntity);
+        
+        _bossTemplate.SetActive(false);
+        _adventurerTemplate.SetActive(false);
         
         if (!isPlayingBoss)
         {
@@ -82,7 +95,7 @@ public class GameManager : MonoBehaviour
     private EntityStats SpawnAdventurer()
     {
         Transform spawnLocation = adventurerSpawnLocations[Random.Range(0, 2)];
-        var adventurer = Instantiate(adventurerPrefab, spawnLocation.position, Quaternion.identity);
+        var adventurer = Instantiate(_adventurerTemplate, spawnLocation.position, Quaternion.identity);
         var component = adventurer.GetComponent<EntityStats>();
         return component;
     }
