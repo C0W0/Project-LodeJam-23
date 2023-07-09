@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public static bool IsGameOngoing { get { return Instance._isGameOngoing; } }
+
+    private readonly List<Vector2> _spawnRandomizer = new List<Vector2>() {
+        Vector2.right, Vector2.down, Vector2.left, Vector2.right, Vector2.one, Vector2.zero
+    };
+    private int _spawnIndex = 0;
 
     [SerializeField]
     private List<Transform> adventurerSpawnLocations;
@@ -18,6 +24,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] 
     private GameObject gameOverScreen;
 
+    [SerializeField]
+    private GameObject infoCard;
+    [SerializeField]
+    private TextMeshProUGUI infoText;
+
     public int adventurerSpawnCount = 5;
 
     private EntityStats _bossEntity;
@@ -25,10 +36,9 @@ public class GameManager : MonoBehaviour
     private GameObject _adventurerTemplate, _bossTemplate, _adventurerHealth;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
-    public int currAdventureIndex
+    public int CurrAdventureIndex
     {
         get { return _currAdventureIndex; }
-        set { _currAdventureIndex = value; }
     }
     private EntityStats _playerEntity;
 
@@ -75,6 +85,9 @@ public class GameManager : MonoBehaviour
 
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
+        infoText.text = isPlayingBoss ? "You will play as the boss" : "You will join the adventurers";
+        infoCard.SetActive(true);
+        
         {
             gameOverScreen.SetActive(false);
             _bossTemplate.SetActive(true);
@@ -110,13 +123,13 @@ public class GameManager : MonoBehaviour
         }
         
         PlayerController.Instance.SetPlayer(_playerEntity);
-        _isGameOngoing = true;
     }
 
     private EntityStats SpawnAdventurer()
     {
-        Transform spawnLocation = adventurerSpawnLocations[Random.Range(0, 2)];
-        var adventurer = Instantiate(_adventurerTemplate, spawnLocation.position, Quaternion.identity);
+        Vector2 spawnLocation = (Vector2)adventurerSpawnLocations[Random.Range(0, 2)].position + _spawnRandomizer[_spawnIndex];
+        _spawnIndex = _spawnIndex == _spawnRandomizer.Count - 1 ? 0 : _spawnIndex + 1;
+        var adventurer = Instantiate(_adventurerTemplate, spawnLocation, Quaternion.identity);
         var component = adventurer.GetComponent<EntityStats>();
         return component;
     }
@@ -206,5 +219,10 @@ public class GameManager : MonoBehaviour
     {
         return _bossEntity;
     }
-    
+
+    public void ContinueGame()
+    {
+        _isGameOngoing = true;
+        infoCard.SetActive(false);
+    }
 }
