@@ -44,12 +44,16 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayer(EntityStats newPlayerEntity)
     {
+        if(_playerObject != null && _playerObject.TryGetComponent<BaseAI>(out BaseAI oldBaseAI))
+            oldBaseAI.enabled = true;
         IsPlayingBoss = newPlayerEntity.IsBoss();
         _playerEntity = newPlayerEntity;
         _playerObject = newPlayerEntity.gameObject;
         _rigidbody2D = _playerObject.GetComponent<Rigidbody2D>();
         playerHealthbar.OnPlayerCharacterSwitch();
         CameraController.Instance.FollowObject(_playerObject.transform);
+        if(_playerObject.TryGetComponent<BaseAI>(out BaseAI baseAi))
+            baseAi.enabled = false;
     }
 
     // Update is called once per frame
