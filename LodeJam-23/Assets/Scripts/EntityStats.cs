@@ -68,7 +68,6 @@ public class EntityStats : MonoBehaviour
         {
             PlayerController.Instance.OnPlayerDeath();
         }
-        Debug.Log(gameObject.name + " has died.");
         GameManager.Instance.OnEntityDeath(this);
     }
 

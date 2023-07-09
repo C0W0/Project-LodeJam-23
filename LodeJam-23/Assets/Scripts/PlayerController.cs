@@ -50,10 +50,10 @@ public class PlayerController : MonoBehaviour
         _playerEntity = newPlayerEntity;
         _playerObject = newPlayerEntity.gameObject;
         _rigidbody2D = _playerObject.GetComponent<Rigidbody2D>();
-        playerHealthbar.OnAttachedEntitySwitch(_playerEntity);
         CameraController.Instance.FollowObject(_playerObject.transform);
         if(_playerObject.TryGetComponent<BaseAI>(out BaseAI baseAi))
             baseAi.enabled = false;
+        RefreshHealthBar();
     }
 
     // Update is called once per frame
