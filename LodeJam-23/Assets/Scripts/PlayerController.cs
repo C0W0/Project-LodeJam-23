@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_playerEntity == null) return;
+
         CheckMovement();
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -85,6 +87,8 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if(_playerEntity == null) return;
+
         if (_dashingTimerInSec > 0.0f)
         {
             Debug.Log("Dashing");
@@ -97,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckMovement()
     {
+        if(_playerEntity == null) return;
         _moveDirection = Vector2.zero;
         foreach (var (key, direction) in _keycodeMap)
         {
@@ -123,6 +128,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator SpeedBoost(int speed, float speedTime)
     {
+        if(_playerEntity == null) yield break;
         _playerEntity.ChangeSpeed(speed);
         yield return new WaitForSeconds(speedTime);
         _playerEntity.ChangeSpeed(-speed);
@@ -130,6 +136,7 @@ public class PlayerController : MonoBehaviour
     
     private void Attack(Vector2 targetPos)
     {
+        if(_playerEntity == null) return;
         _playerEntity.Attack(targetPos);
     }
 
@@ -141,5 +148,13 @@ public class PlayerController : MonoBehaviour
     public void OnPlayerHealthChange()
     {
         playerHealthbar.OnPlayerHealthChange();
+    }
+
+    public void OnPlayerDeath()
+    {
+        Debug.Log("Player died");
+        _playerEntity = null;
+        _playerObject = null;
+        _rigidbody2D = null;
     }
 }
