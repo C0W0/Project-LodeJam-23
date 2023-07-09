@@ -23,7 +23,7 @@ public class BossAI : BaseAI
 
     protected override void InitAI()
     {
-        if (GameManager.Instance.currAdventureIndex == -1)
+        if (GameManager.Instance.CurrAdventureIndex == -1)
         {
             enabled = false;
             return;

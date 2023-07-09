@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public static bool IsGameOngoing { get { return Instance._isGameOngoing; } }
 
+    private readonly List<Vector2> _spawnRandomizer = new List<Vector2>() {
+        Vector2.right, Vector2.down, Vector2.left, Vector2.right, Vector2.one, Vector2.zero
+    };
+    private int _spawnIndex = 0;
+
     [SerializeField]
     private List<Transform> adventurerSpawnLocations;
     [SerializeField]
@@ -25,10 +30,9 @@ public class GameManager : MonoBehaviour
     private GameObject _adventurerTemplate, _bossTemplate, _adventurerHealth;
 
     private int _currAdventureIndex; // -1 meaning playing the boss
-    public int currAdventureIndex
+    public int CurrAdventureIndex
     {
         get { return _currAdventureIndex; }
-        set { _currAdventureIndex = value; }
     }
     private EntityStats _playerEntity;
 
@@ -115,8 +119,9 @@ public class GameManager : MonoBehaviour
 
     private EntityStats SpawnAdventurer()
     {
-        Transform spawnLocation = adventurerSpawnLocations[Random.Range(0, 2)];
-        var adventurer = Instantiate(_adventurerTemplate, spawnLocation.position, Quaternion.identity);
+        Vector2 spawnLocation = (Vector2)adventurerSpawnLocations[Random.Range(0, 2)].position + _spawnRandomizer[_spawnIndex];
+        _spawnIndex = _spawnIndex == _spawnRandomizer.Count - 1 ? 0 : _spawnIndex + 1;
+        var adventurer = Instantiate(_adventurerTemplate, spawnLocation, Quaternion.identity);
         var component = adventurer.GetComponent<EntityStats>();
         return component;
     }
