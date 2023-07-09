@@ -29,16 +29,16 @@ public class ItemScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        var playerScript = collider.gameObject.GetComponent<PlayerController>();
-        if (playerScript ==  null )
+        var playerScript = collider.gameObject.GetComponent<EntityStats>();
+        if (playerScript != GameManager.Instance.GetPlayerEntity())
         {
             return;
         }
 
-        StartCoroutine(playerScript.SpeedBoost(3, 2f));
+        StartCoroutine(PlayerController.Instance.SpeedBoost(3, 2f));
         print(":o");
         Dissapear();
-        Invoke("Appear", 5f);        
+        Invoke(nameof(Appear), 5f);        
     }
 
 }
