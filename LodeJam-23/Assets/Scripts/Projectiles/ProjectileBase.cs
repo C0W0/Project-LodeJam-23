@@ -60,7 +60,7 @@ public class ProjectileBase : MonoBehaviour
         if (collision.gameObject.TryGetComponent<EntityStats>(out EntityStats entityStats))
         {
             // Hit an entity
-            entityStats.TakeDamage(_damage);
+            entityStats.TakeDamage(_damage, _owner);
             ProjectileManager.Instance.RemoveProjectile(this);
         }
         else

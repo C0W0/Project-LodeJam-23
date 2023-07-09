@@ -7,6 +7,11 @@ public class BaseAI : MonoBehaviour
     protected Rigidbody2D _rb;
     protected EntityStats _entity;
     protected GameObject _target;
+    public GameObject target
+    {
+        get { return _target; }
+        set { _target = value; }
+    }
 
     void Awake()
     {
@@ -14,11 +19,7 @@ public class BaseAI : MonoBehaviour
         _entity = GetComponent<EntityStats>();
     }
 
-    void Start()
-	{
-		_target = GameManager.Instance.GetBossEntity().gameObject;
-        InitAI();
-	}
+    protected virtual void Start() { }
 
     private void Update()
     {

@@ -54,8 +54,14 @@ public class AdventurerAI : BaseAI
 			_rb.velocity = Vector2.zero;
 	}
 
+    protected override void Start()
+    {
+        _target = GameManager.Instance.GetBossEntity().gameObject;
+        InitAI();
+    }
 
-	protected override void UpdateAttack()
+
+    protected override void UpdateAttack()
 	{
 		_timeSinceLastAttack += Time.deltaTime;
 

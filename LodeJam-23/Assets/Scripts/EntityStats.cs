@@ -31,8 +31,12 @@ public class EntityStats : MonoBehaviour
 
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, GameObject attacker)
     {
+        if (gameObject.GetComponent<BossAI>() != null)
+        {
+            gameObject.GetComponent<BossAI>().target = attacker;
+        }
         float damageTaken = damage - defense;
         if (damageTaken < 0)
         {
@@ -117,7 +121,6 @@ public class EntityStats : MonoBehaviour
     {
         return speed;
     }
-
     public float GetAttackSpeed()
     {
         return attackSpeed;

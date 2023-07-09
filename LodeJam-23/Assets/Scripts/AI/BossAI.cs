@@ -33,6 +33,12 @@ public class BossAI : BaseAI
         _rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
     }
 
+    protected override void Start()
+    {
+        _target = GameManager.Instance.GetPlayerEntity().gameObject;
+        InitAI();
+    }
+
     protected override void UpdateMovement()
     {
         if (enabled == false)
@@ -45,6 +51,7 @@ public class BossAI : BaseAI
         // On a random interval
         if (_timeSinceLastDirectionChange >= _changeDirectionInterval)
         {
+            print("ok");
             _direction = Random.insideUnitCircle.normalized;
             _rotateDirection = Random.Range(0, 2) * 2 - 1; // initialize rotateDirection to either 1 or -1
             _timeSinceLastDirectionChange = 0f;
@@ -58,10 +65,10 @@ public class BossAI : BaseAI
 
         Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
         Vector2 directionToTarget = (targetLocation - (Vector2)transform.position).normalized;
-        if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
+        //if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
             _rb.velocity = directionToTarget * _entity.GetSpeed();
-        else
-            _rb.velocity = Vector2.zero;
+        //else
+          //  _rb.velocity = Vector2.zero;
     }
 
 
