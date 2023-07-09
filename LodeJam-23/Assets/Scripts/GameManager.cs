@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartLevel(false, 5);
+        StartLevel(true, 5);
     }
 
     void Update()

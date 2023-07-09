@@ -164,5 +164,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounceCount: 0
   bounceMultiplier: 1
-  pierceCount: 0
   bounceSpeedMultiplier: 1
