@@ -26,6 +26,7 @@ public class ProjectileBase : MonoBehaviour
         _damage = ownerStats.GetAttack();
         _speed = ownerStats.GetAttackSpeed();
         _direction = targetPos - (Vector2)transform.position;
+        _direction.Normalize();
         ProjectileManager.Instance.AddProjectile(this);
     }
 
