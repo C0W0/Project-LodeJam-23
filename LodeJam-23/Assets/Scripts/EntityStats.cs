@@ -82,9 +82,24 @@ public class EntityStats : MonoBehaviour
 
     public void Attack(Vector2 targetPos)
     {
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
-        projectileBase.Init(targetPos, this);
+        if (IsBoss())
+        {
+            // Attack in all 4 directions
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 rotatedTargetPos = (Vector2) (Quaternion.Euler(0, 0, 90 * i) * (targetPos - (Vector2)transform.position)) + (Vector2)transform.position;
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
+                projectileBase.Init(rotatedTargetPos, this);
+            }
+        }
+        else
+        {
+            // Attack in the specified direction
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
+            projectileBase.Init(targetPos, this);
+        }
     }
 
     public bool IsBoss()
