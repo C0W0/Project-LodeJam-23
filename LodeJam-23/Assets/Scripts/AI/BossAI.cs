@@ -67,15 +67,32 @@ public class BossAI : BaseAI
 
     protected override void UpdateAttack()
     {
+        _timeSinceLastAttack += Time.deltaTime;
 
         if (_enabled == false)
+        {
             return; // no player to attack
+        }
 
         Vector2 targetLocation = (Vector2)_target.transform.position + _direction * distanceFromPlayer;
         if (Vector2.Distance(transform.position, targetLocation) > deadbandDistance)
+        {
             return; // too far
+        }
+        if (_timeSinceLastAttack < Random.Range(minAttackInterval, maxAttackInterval))
+            return; // too soon
 
-        _entity.Attack(_target.transform.position);
+        // Attack in a cross pattern
+        Vector2[] attackDirections = new Vector2[4];
+        attackDirections[0] = Vector2.up;
+        attackDirections[1] = Vector2.down;
+        attackDirections[2] = Vector2.left;
+        attackDirections[3] = Vector2.right;
+        for (int i = 0; i < attackDirections.Length; i++)
+        {
+            _entity.Attack(attackDirections[i]);
+        }
+
         _timeSinceLastAttack = 0f;
     }
 }
