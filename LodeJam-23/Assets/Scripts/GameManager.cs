@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,26 +10,36 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private EntityStats playerEntity;
+    [SerializeField]
+    private List<Transform> adventurerSpawnLocations;
 
-    private HashSet<EntityStats> _enemies;
+    [SerializeField]
+    private GameObject adventurerPrefab;
+
+    private EntityStats _bossEntity;
+    private HashSet<EntityStats> _adventurers;
+
 
     void Awake()
     {
         Instance = this;
+        _adventurers = new HashSet<EntityStats>();
     }
 
     void Start()
     {
         PlayerController.Instance.SetPlayer(playerEntity);
+        StartLevel();
+    }
 
-        // add every single EntityStats in the scene to the enemies set except for the player
-        _enemies = new HashSet<EntityStats>();
-        foreach (EntityStats entity in FindObjectsByType<EntityStats>(FindObjectsSortMode.None))
+    public void StartLevel()
+    {
+        for (int _ = 0; _ < 5; _++)
         {
-            if (entity != playerEntity)
-            {
-                _enemies.Add(entity);
-            }
+            Transform spawnLocation = adventurerSpawnLocations[Random.Range(0, 2)];
+            var adventurer = Instantiate(adventurerPrefab, spawnLocation.position, Quaternion.identity);
+            var component = adventurer.GetComponent<EntityStats>();
+            _adventurers.Add(component);
         }
     }
 
@@ -36,9 +47,7 @@ public class GameManager : MonoBehaviour
     public void SwapPlayer(EntityStats newPlayer)
     {
         // TODO: this is wrong
-        _enemies.Add(playerEntity);
         SetPlayerEntity(newPlayer);
-        _enemies.Remove(newPlayer);
     }
 
     private void SetPlayerEntity(EntityStats newPlayer)
@@ -50,11 +59,6 @@ public class GameManager : MonoBehaviour
     public EntityStats GetPlayerEntity()
     {
         return playerEntity;
-    }
-
-    public HashSet<EntityStats> GetEnemies()
-    {
-        return _enemies;
     }
     
 }

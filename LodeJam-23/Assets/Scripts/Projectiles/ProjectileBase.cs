@@ -13,9 +13,11 @@ public class ProjectileBase : MonoBehaviour
     public int bounceMultiplier = 1;
     public float bounceSpeedMultiplier = 1f;
 
+    private DateTime _spawnTime;
+
     void Awake()
     {
-
+        _spawnTime = DateTime.Now;
     }
 
     public void Init(Vector2 targetPos, EntityStats ownerStats)
@@ -37,6 +39,8 @@ public class ProjectileBase : MonoBehaviour
     {
         transform.Translate(_speed * Time.deltaTime * _direction);
         if (!CameraController.IsInScene(transform.position))
+            ProjectileManager.Instance.RemoveProjectile(this);
+        if ((DateTime.Now - _spawnTime).Seconds > 2)
             ProjectileManager.Instance.RemoveProjectile(this);
     }
 
