@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_playerEntity == null) return;
+        if(!GameManager.IsGameOngoing || _playerEntity == null) return;
 
         CheckMovement();
         if (Input.GetKeyDown(KeyCode.Mouse0))

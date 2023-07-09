@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,15 @@ using UnityEngine.EventSystems;
 
 public class CardContainerController : MonoBehaviour
 {
+    public static CardContainerController Instance;
+    
     [SerializeField]
     private GameObject cardPrefab;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

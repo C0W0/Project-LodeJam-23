@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public static bool IsGameOngoing { get { return Instance._isGameOngoing; } }
 
     [SerializeField]
     private List<Transform> adventurerSpawnLocations;
@@ -21,15 +22,18 @@ public class GameManager : MonoBehaviour
     private int _currAdventureIndex; // -1 meaning playing the boss
     private EntityStats _playerEntity;
 
+    private bool _isGameOngoing;
+
     void Awake()
     {
         Instance = this;
         _adventurers = new List<EntityStats>();
+        _isGameOngoing = false;
     }
 
     void Start()
     {
-        StartLevel(false, 5);
+        StartLevel(true, 5);
     }
 
     void Update()
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
         
         PlayerController.Instance.SetPlayer(_playerEntity);
         PlayerController.Instance.playerHealthbar.OnPlayerCharacterSwitch();
+        _isGameOngoing = true;
     }
 
     private EntityStats SpawnAdventurer()
@@ -74,7 +79,13 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(bool isVictory)
     {
-        print($"Game ends: {isVictory}");
+        if (!_isGameOngoing)
+        {
+            return;
+        }
+        
+        _isGameOngoing = false;
+        CardContainerController.Instance.CreateThreeCards();
     }
 
     public void OnEntityDeath(EntityStats entity)
