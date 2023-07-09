@@ -97,7 +97,6 @@ public class GameManager : MonoBehaviour
         }
         
         PlayerController.Instance.SetPlayer(_playerEntity);
-        PlayerController.Instance.playerHealthbar.OnPlayerCharacterSwitch();
         _isGameOngoing = true;
     }
 
@@ -157,12 +156,17 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.SetPlayer(newPlayer);
     }
 
-    public void CycleAdvEntity(bool next)
+    public bool TryCycleAdvEntity(bool next)
     {
         if (_currAdventureIndex == -1)
         {
             Debug.LogWarning("Cycling happened when playing as a boss");
-            return;
+            return false;
+        }
+
+        if (_adventurers.Count <= 1)
+        {
+            return false;
         }
         
         if (next)
@@ -174,6 +178,7 @@ public class GameManager : MonoBehaviour
             _currAdventureIndex = _currAdventureIndex == 0 ? _adventurers.Count-1 : _currAdventureIndex-1;
         }
         SetPlayerEntity(_adventurers[_currAdventureIndex]);
+        return true;
     }
 
     public EntityStats GetPlayerEntity()

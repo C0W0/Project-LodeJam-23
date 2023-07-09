@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         _playerEntity = newPlayerEntity;
         _playerObject = newPlayerEntity.gameObject;
         _rigidbody2D = _playerObject.GetComponent<Rigidbody2D>();
-        playerHealthbar.OnPlayerCharacterSwitch();
+        playerHealthbar.OnAttachedEntitySwitch(_playerEntity);
         CameraController.Instance.FollowObject(_playerObject.transform);
     }
 
@@ -79,11 +79,11 @@ public class PlayerController : MonoBehaviour
         // cycling only works when playing as adventurers
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameManager.Instance.CycleAdvEntity(false);
+            GameManager.Instance.TryCycleAdvEntity(false);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            GameManager.Instance.CycleAdvEntity(true);
+            GameManager.Instance.TryCycleAdvEntity(true);
         }
     }
     
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerHealthChange()
     {
-        playerHealthbar.OnPlayerHealthChange();
+        playerHealthbar.OnEntityHealthChange();
     }
 
     public void OnPlayerDeath()
@@ -151,5 +151,10 @@ public class PlayerController : MonoBehaviour
         _playerEntity = null;
         _playerObject = null;
         _rigidbody2D = null;
+    }
+
+    public void RefreshHealthBar()
+    {
+        playerHealthbar.OnAttachedEntitySwitch(_playerEntity);
     }
 }

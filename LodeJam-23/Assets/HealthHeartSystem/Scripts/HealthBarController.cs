@@ -13,15 +13,18 @@ public class HealthBarController : BaseHealthBar
     public Transform heartsParent;
     public GameObject heartContainerPrefab;
 
-    public override void OnPlayerHealthChange()
+    private EntityStats _entity;
+
+    public override void OnEntityHealthChange()
     {
         UpdateHeartsHUD();
     }
 
-    public override void OnPlayerCharacterSwitch()
+    public override void OnAttachedEntitySwitch(EntityStats entity)
     {
+        _entity = entity;
         // Should I use lists? Maybe :)
-        int maxHealth = (int)GameManager.Instance.GetPlayerEntity().GetMaxHealth();
+        int maxHealth = (int)_entity.GetMaxHealth();
 
         if (heartContainers != null)
         {
@@ -48,7 +51,7 @@ public class HealthBarController : BaseHealthBar
     {
         for (int i = 0; i < heartContainers.Length; i++)
         {
-            if (i < GameManager.Instance.GetPlayerEntity().GetMaxHealth())
+            if (i < _entity.GetMaxHealth())
             {
                 heartContainers[i].SetActive(true);
             }
@@ -63,7 +66,7 @@ public class HealthBarController : BaseHealthBar
     {
         for (int i = 0; i < heartFills.Length; i++)
         {
-            if (i < GameManager.Instance.GetPlayerEntity().GetCurrentHealth())
+            if (i < _entity.GetCurrentHealth())
             {
                 heartFills[i].fillAmount = 1;
             }
@@ -73,7 +76,7 @@ public class HealthBarController : BaseHealthBar
             }
         }
 
-        float currHealth = GameManager.Instance.GetPlayerEntity().GetCurrentHealth();
+        float currHealth = _entity.GetCurrentHealth();
         if (currHealth % 1 != 0)
         {
             int lastPos = Mathf.FloorToInt(currHealth);
@@ -83,7 +86,7 @@ public class HealthBarController : BaseHealthBar
 
     void InstantiateHeartContainers()
     {
-        for (int i = 0; i < GameManager.Instance.GetPlayerEntity().GetMaxHealth(); i++)
+        for (int i = 0; i < _entity.GetMaxHealth(); i++)
         {
             GameObject temp = Instantiate(heartContainerPrefab);
             temp.transform.SetParent(heartsParent, false);
