@@ -15,11 +15,6 @@ public class CameraController : MonoBehaviour
 	[SerializeField]
 	private Bounds cameraLimit;
 
-	[SerializeField]
-	private float shakeDuration = 0.2f;
-	[SerializeField]
-	private float shakeMagnitude = 0.1f;
-
 	private Camera _cam;
 	private Vector3 _touchPos;
 	private Transform _objToFollow;
@@ -36,6 +31,8 @@ public class CameraController : MonoBehaviour
 		if (_objToFollow != null)
 		{
 			Vector3 targetPos = _objToFollow.position;
+			targetPos.x = Mathf.Clamp(targetPos.x, cameraLimit.min.x, cameraLimit.max.x);
+			targetPos.y = Mathf.Clamp(targetPos.y, cameraLimit.min.y, cameraLimit.max.y);
 			Vector3 pos = _cam.transform.position;
 			_cam.transform.position = new Vector3(
 				Mathf.Lerp(pos.x, targetPos.x, 0.1f),
@@ -66,12 +63,13 @@ public class CameraController : MonoBehaviour
 		LeanTween.move(gameObject, newPos, 0.2f);
 	}
 
-	public void ShakeCamera()
-	{
-		StartCoroutine(Shake());
+	public void ShakeCamera(float shakeMagnitude, float shakeDuration)
+
+    {
+		StartCoroutine(Shake(shakeMagnitude, shakeDuration));
 	}
 
-	private IEnumerator Shake()
+	private IEnumerator Shake(float shakeMagnitude, float shakeDuration)
 	{
 		Vector3 originalPos = transform.localPosition;
 

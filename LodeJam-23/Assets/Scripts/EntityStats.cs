@@ -35,7 +35,8 @@ public class EntityStats : MonoBehaviour
     {
         if (GameManager.Instance.GetPlayerEntity() == this)
         {
-            PlayerController.Instance.playerHealthbar.OnPlayerHealthChange();
+            PlayerController.Instance.OnPlayerHealthChange();
+            PlayerController.Instance.OnDamageTaken();
         }
         
         float damageTaken = damage - defense;
@@ -56,7 +57,7 @@ public class EntityStats : MonoBehaviour
     {
         if (GameManager.Instance.GetPlayerEntity() == this)
         {
-            PlayerController.Instance.playerHealthbar.OnPlayerHealthChange();
+            PlayerController.Instance.OnPlayerHealthChange();
         }
 
         _currentHealth = Math.Min(maxHealth, _currentHealth + healAmount);
