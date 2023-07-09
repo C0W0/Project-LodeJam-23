@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Transform bossSpawnLocation;
     [SerializeField]
     private GameObject adventurerPrefab, bossPrefab;
+    [SerializeField] 
+    private GameObject gameOverScreen;
 
     public int adventurerSpawnCount = 5;
 
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
     private void StartLevel(bool isPlayingBoss, int advSpawnCount)
     {
         {
+            gameOverScreen.SetActive(false);
             _bossTemplate.SetActive(true);
             _adventurerTemplate.SetActive(true);
             var baseBossEntity = _bossTemplate.GetComponent<EntityStats>();
@@ -137,6 +140,7 @@ public class GameManager : MonoBehaviour
         {
             ApplyBonus = _ => {};
             // TODO: display defeat UI
+            gameOverScreen.SetActive(true);
             StartLevel(PlayerController.Instance.IsPlayingBoss, adventurerSpawnCount);
         }
         
